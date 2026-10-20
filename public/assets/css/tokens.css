@@ -1,0 +1,157 @@
+/* =============================================================
+   PARI SOLUTIONS · Design Tokens
+   The single source of truth for color, type, spacing, motion.
+   ============================================================= */
+
+:root {
+  /* ---- Brand palette (from Brand Guidelines v2.0) ---- */
+  --navy-950: #060D14;
+  --navy-900: #0A121C;
+  --navy-800: #0E1A26;
+  --navy-700: #13212F;
+  --navy-600: #17293B;
+  --navy-500: #1E3348;
+  --navy-400: #253E56;
+  --steel-500: #3B5875;
+  --steel-400: #4E6F8E;
+  --steel-300: #6B87A3;
+  --steel-200: #8A9CB2;
+  --steel-100: #B4C1D0;
+
+  --gold-700: #A38240;
+  --gold-600: #B7943D;
+  --gold-500: #CFAE71;
+  --gold-400: #E4C372;
+  --gold-300: #EED49A;
+  --gold-100: #F6E7C4;
+
+  --cream-50:  #F5F6F7;
+  --cream-100: #E9ECEF;
+
+  /* ---- Semantic (dark theme is the brand default) ---- */
+  --bg:            var(--navy-900);
+  --bg-elevated:   var(--navy-700);
+  --bg-card:       var(--navy-600);
+  --bg-raised:     var(--navy-500);
+  --border:        rgba(59, 88, 117, 0.35);
+  --border-strong: rgba(59, 88, 117, 0.6);
+  --divider:       rgba(59, 88, 117, 0.22);
+
+  --text:          var(--cream-50);
+  --text-soft:     var(--steel-100);
+  --text-muted:    var(--steel-200);
+  --text-dim:      var(--steel-300);
+
+  --accent:         var(--gold-500);
+  --accent-hi:      var(--gold-400);
+  --accent-soft:    rgba(207, 174, 113, 0.14);
+  --accent-glow:    rgba(228, 195, 114, 0.35);
+
+  /* ---- Status colors (industrial, muted, not neon) ---- */
+  --ok-500:      #4FBE8C;
+  --ok-400:      #6ED0A2;
+  --ok-soft:     rgba(79, 190, 140, 0.14);
+
+  --warn-500:    #E4A24E;
+  --warn-400:    #EDBB79;
+  --warn-soft:   rgba(228, 162, 78, 0.16);
+
+  --danger-500:  #E27070;
+  --danger-400:  #EE9090;
+  --danger-soft: rgba(226, 112, 112, 0.15);
+
+  --info-500:    #6BA4D9;
+  --info-soft:   rgba(107, 164, 217, 0.15);
+
+  /* ---- Typography ---- */
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --fs-xs:   0.6875rem;
+  --fs-sm:   0.8125rem;
+  --fs-base: 0.9375rem;
+  --fs-md:   1.0625rem;
+  --fs-lg:   1.25rem;
+  --fs-xl:   1.5rem;
+  --fs-2xl:  2rem;
+  --fs-3xl:  2.75rem;
+  --fs-4xl:  3.75rem;
+  --fs-5xl:  5rem;
+
+  --lh-tight: 1.15;
+  --lh-snug:  1.3;
+  --lh-body:  1.55;
+  --lh-loose: 1.75;
+
+  --tracking-wide:   0.08em;
+  --tracking-wider:  0.16em;
+  --tracking-widest: 0.28em;
+
+  /* ---- Spacing (4-based, industrial rhythm) ---- */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+  --sp-32: 128px;
+
+  /* ---- Radii ---- */
+  --r-xs:  4px;
+  --r-sm:  6px;
+  --r-md:  10px;
+  --r-lg:  14px;
+  --r-xl:  20px;
+  --r-full: 999px;
+
+  /* ---- Shadows (soft, engineered — no consumer bloom) ---- */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 4px 14px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-gold: 0 8px 24px rgba(207, 174, 113, 0.22);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+  /* ---- Motion ---- */
+  --dur-1: 120ms;
+  --dur-2: 180ms;
+  --dur-3: 260ms;
+  --dur-4: 420ms;
+  --dur-5: 640ms;
+  --dur-6: 900ms;
+
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-swing:  cubic-bezier(0.5, 1.6, 0.5, 1);
+  --ease-linear: linear;
+
+  /* ---- Layout ---- */
+  --container: 1240px;
+  --container-wide: 1400px;
+  --sidebar-w: 260px;
+  --sidebar-w-collapsed: 72px;
+  --topbar-h: 64px;
+
+  /* ---- Z-index scale ---- */
+  --z-under:   -1;
+  --z-base:    1;
+  --z-raised:  10;
+  --z-sticky:  50;
+  --z-topbar:  100;
+  --z-drawer:  200;
+  --z-modal:   300;
+  --z-toast:   400;
+  --z-tooltip: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-1: 0ms; --dur-2: 0ms; --dur-3: 0ms;
+    --dur-4: 0ms; --dur-5: 0ms; --dur-6: 0ms;
+  }
+}

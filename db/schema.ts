@@ -1,0 +1,8 @@
+import { sqliteTable, text, integer, primaryKey, uniqueIndex } from 'drizzle-orm/sqlite-core';
+export const workspaces=sqliteTable('pclm_workspaces',{id:text('id').primaryKey(),owner:text('owner').notNull(),revision:integer('revision').notNull().default(1),metadata:text('metadata').notNull(),lastWrite:text('last_write')});
+export const records=sqliteTable('pclm_records',{workspace:text('workspace').notNull(),collection:text('collection').notNull(),id:text('id').notNull(),version:integer('version').notNull().default(1),data:text('data').notNull() },t=>[primaryKey({columns:[t.workspace,t.collection,t.id]})]);
+export const members=sqliteTable('pclm_members',{id:text('id').primaryKey(),workspace:text('workspace').notNull(),identity:text('identity'),email:text('email').notNull(),data:text('data').notNull()},t=>[uniqueIndex('pclm_member_identity').on(t.identity),uniqueIndex('pclm_member_email').on(t.workspace,t.email)]);
+export const invitations=sqliteTable('pclm_invitations',{hash:text('hash').primaryKey(),workspace:text('workspace').notNull(),member:text('member').notNull(),expires:integer('expires').notNull(),used:integer('used').notNull().default(0)});
+export const files=sqliteTable('pclm_files',{id:text('id').primaryKey(),workspace:text('workspace').notNull(),uploader:text('uploader').notNull(),data:text('data').notNull()});
+export const receipts=sqliteTable('pclm_receipts',{workspace:text('workspace').notNull(),id:text('id').notNull(),actor:text('actor').notNull(),hash:text('hash').notNull(),created:text('created').notNull()},t=>[primaryKey({columns:[t.workspace,t.id]})]);
+export const outbox=sqliteTable('pclm_outbox',{id:text('id').primaryKey(),workspace:text('workspace').notNull(),data:text('data').notNull()});

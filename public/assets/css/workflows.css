@@ -1,0 +1,34 @@
+/* Additive styles for working controls; existing screen styles are retained. */
+[x-cloak] { display: none !important; }
+.pari-dialog { margin:auto; width:min(720px,calc(100vw - 32px)); max-height:90vh; overflow:auto; padding:0; color:var(--text); background:var(--navy-800); border:1px solid var(--border-strong); border-radius:var(--r-lg); box-shadow:var(--shadow-3); }
+.pari-dialog::backdrop { background:rgba(0,6,14,.76); backdrop-filter:blur(3px); }
+.pari-dialog-head { position:sticky; top:0; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px 24px; background:var(--navy-800); border-bottom:1px solid var(--divider); z-index:1; }
+.pari-dialog-head h2 { font-size:1.25rem; font-weight:500; }
+.pari-dialog-body { padding:24px; }
+.pari-form { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.pari-form .wide { grid-column:1/-1; }
+.pari-form label { display:flex; flex-direction:column; gap:8px; font-size:13px; color:var(--text-soft); }
+.pari-form textarea { min-height:85px; resize:vertical; }
+.pari-form .input,.pari-form .select { width:100%; }
+.pari-dialog-actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:10px; padding-top:20px; grid-column:1/-1; border-top:1px solid var(--divider); }
+.pari-error { color:var(--danger-400); font-size:13px; grid-column:1/-1; }
+.pari-note { color:var(--text-muted); font-size:13px; margin-bottom:18px; }
+.pari-toast { position:fixed; bottom:24px; right:24px; z-index:500; max-width:min(460px,calc(100vw - 32px)); padding:16px 20px; color:var(--text); background:var(--navy-700); border:1px solid var(--accent); border-radius:10px; box-shadow:var(--shadow-3); }
+.pari-results { position:absolute; top:42px; left:0; right:0; max-height:360px; overflow:auto; background:var(--navy-800); border:1px solid var(--border-strong); border-radius:10px; box-shadow:var(--shadow-3); z-index:250; }
+.pari-results a { display:block; padding:12px 16px; border-bottom:1px solid var(--divider); font-size:13px; }
+.pari-results p { padding:16px; font-size:13px; }
+.pari-inline-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:14px; }
+.pari-list { display:grid; gap:12px; }
+.pari-list-item { padding:16px; border:1px solid var(--border); border-radius:8px; }
+.pari-list-item p { margin:6px 0; font-size:13px; }
+.pari-calendar { display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px; }
+.pari-calendar>div { min-height:90px; padding:8px; background:var(--navy-700); border-radius:6px; font-size:12px; }
+.pari-calendar button { display:block; width:100%; text-align:left; font-size:11px; padding:5px; margin-top:4px; border-left:2px solid var(--accent); background:var(--navy-600); }
+.pari-calendar .weekday { min-height:0;color:var(--text-dim);text-align:center; }
+button[disabled] { opacity:.45;cursor:not-allowed; }
+.pari-clickable { cursor:pointer; }
+@media(max-width:800px) { .app.is-collapsed { grid-template-columns:1fr; } .sidebar.is-mobile-open { transform:translateX(0); display:flex; width:260px; position:fixed;left:0;top:0; } .pari-backdrop { position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:190; } .topbar .breadcrumbs { min-width:0; flex:1; } .topbar .breadcrumbs span:first-child { display:none; } .content>.kpi-grid { grid-template-columns:repeat(2,1fr)!important; } .pari-form { grid-template-columns:1fr; } .pari-dialog-body { padding:16px; } .pari-calendar { grid-template-columns:repeat(7,minmax(70px,1fr));overflow:auto; } .plant-switcher { max-width:150px; } }
+/* Icon-only controls need a real hit area even before SVG paint. */
+.btn > [data-icon], .topbar-icon > [data-icon], .collapse-btn > [data-icon], button > [data-icon], .plant-icon > [data-icon], .icon-badge > [data-icon] { display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;flex-shrink:0; }
+button > [data-icon] > svg,.plant-icon > [data-icon] > svg,.icon-badge > [data-icon] > svg { width:100%;height:100%; }
+button[aria-label="Download document"],button[aria-label="Edit user"] { min-width:28px;min-height:28px;display:inline-flex;align-items:center;justify-content:center; }

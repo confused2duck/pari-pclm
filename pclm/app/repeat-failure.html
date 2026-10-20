@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Repeat-Failure Intelligence · Pari</title>
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="../assets/js/app-health.js"></script>
+<script src="../assets/js/mock-data.js"></script>
+<script src="../assets/js/server-client.js"></script>
+<script src="../assets/js/store.js"></script>
+<script defer src="../assets/js/app.js"></script>
+<script defer src="../assets/js/workflows.js"></script>
+<script defer src="../assets/js/lifecycle.js"></script>
+<script defer src="../assets/vendor/alpine-3.14.1.min.js"></script>
+<link rel="stylesheet" href="../assets/css/workflows.css">
+<link rel="stylesheet" href="../assets/css/lifecycle.css">
+<link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#0A121C">
+</head>
+<body x-data="shell" :class="collapsed ? 'app is-collapsed' : 'app'">
+
+<button class="pari-backdrop" x-show="mobileOpen" x-cloak @click="mobileOpen = false" aria-label="Close sidebar"></button>
+<aside class="sidebar" :class="{ 'is-collapsed': collapsed &amp;&amp; !mobileOpen, 'is-mobile-open': mobileOpen }">
+  <a href="../index.html" class="sidebar-brand"><img class="mark" src="../assets/img/logo-mark.svg" alt=""><span class="name sidebar-label">Pari</span></a>
+<div class="sidebar-section sidebar-label">Overview</div><nav class="sidebar-nav"><a href="dashboard.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reliability</span></a><a href="cranes.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Cranes</span></a></nav>
+<div class="sidebar-section sidebar-label">Customers & Commercial</div><nav class="sidebar-nav"><a href="customers.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Customers</span></a><a href="plants.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Plants & Sites</span></a><a href="enquiries.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Enquiries</span></a><a href="quotations.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Quotations</span></a><a href="contracts.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Contracts & Renewals</span></a></nav>
+<div class="sidebar-section sidebar-label">Engineering & Projects</div><nav class="sidebar-nav"><a href="requirements.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Requirements & Specs</span></a><a href="engineering-reviews.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Drawing & Technical Reviews</span></a><a href="vendor-comparisons.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Vendor Comparisons</span></a><a href="projects.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Projects</span></a><a href="project-tasks.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Tasks & Punch List</span></a><a href="commissioning.html" class="sidebar-link"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Commissioning & Handover</span></a></nav>
+<div class="sidebar-section sidebar-label">Operations</div><nav class="sidebar-nav"><a href="components.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Components</span></a><a href="inspections.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspections</span></a><a href="checklists.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspection Templates</span></a><a href="pm-schedule.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Preventive Maintenance</span></a><a href="pm-rules.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">PM Rules</span></a><a href="usage.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Operating Readings</span></a><a href="breakdowns.html" class="sidebar-link"><i class="icon" data-icon="breakdown"></i><span class="sidebar-label">Breakdowns</span></a><a href="repeat-failure.html" class="sidebar-link is-active"><i class="icon" data-icon="brain"></i><span class="sidebar-label">Repeat-Failure</span></a></nav>
+<div class="sidebar-section sidebar-label">Service & Supply</div><nav class="sidebar-nav"><a href="service-requests.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Service Requests</span></a><a href="work-orders.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Work Orders</span></a><a href="visits.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Technician Visits</span></a><a href="spares.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Critical Spares</span></a><a href="procurement.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Purchase Requests</span></a><a href="partners.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Suppliers & Partners</span></a></nav>
+<div class="sidebar-section sidebar-label">Lifecycle & Governance</div><nav class="sidebar-nav"><a href="modernizations.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Modernization</span></a><a href="documents.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Documents & Certs</span></a><a href="statutory.html" class="sidebar-link"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Statutory Calendar</span></a><a href="approvals.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Approvals</span></a><a href="reports.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reports</span></a></nav>
+<div class="sidebar-section sidebar-label">Admin</div><nav class="sidebar-nav"><a href="notifications.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Notifications</span></a><a href="users.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Users & Roles</span></a><a href="customer-portal.html" class="sidebar-link"><i class="icon" data-icon="eye"></i><span class="sidebar-label">Customer Portal</span></a></nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user"><div class="avatar">RM</div><div class="who sidebar-label"><span class="name">Ravi Mehta</span><span class="role">Reliability Manager</span></div></div>
+  </div>
+</aside>
+
+<main class="app-main">
+  <div class="topbar">
+    <button class="collapse-btn" @click="toggleCollapse()"><i data-icon="menu"></i></button>
+    <div class="breadcrumbs"><span>Jamshedpur Steel Works</span><span class="sep">/</span><span class="current">Repeat-Failure Intelligence</span></div>
+    <div class="topbar-search"><i data-icon="search"></i><input class="input" type="search" placeholder="Search…"><span class="kbd">⌘ K</span></div>
+    <div class="plant-switcher"><div class="plant-icon"><i data-icon="layers"></i></div><div><div class="plant-name">Jamshedpur SW</div><div class="plant-role">42 cranes · JH</div></div><i data-icon="chevron_down" style="color: var(--text-dim); width: 14px; height: 14px;"></i></div>
+    <button class="topbar-icon"><i data-icon="bell"></i><span class="dot"></span></button>
+    <button class="topbar-icon"><i data-icon="brain"></i></button>
+  </div>
+
+  <div class="content" x-data="repeatFailure">
+    <div class="page-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom: var(--sp-2);">Module 05 · Repeat-Failure Intelligence · <span style="color: var(--danger-400);">The core moat</span></div>
+        <h1 class="page-title">Repeat-Failure Intelligence</h1>
+        <p class="page-lede">A background job on every event checks failure count on the same component within a rolling window per criticality class. ML-ready by design.</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary btn-sm" @click="PARI_UI.csv(&#x27;repeat-failures&#x27;, flags)"><i data-icon="download"></i> Export dataset</button>
+        <button class="btn btn-primary btn-sm" @click="PARI_UI.thresholds()"><i data-icon="brain"></i> Configure thresholds</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid reveal" style="grid-template-columns: repeat(4, 1fr); margin-bottom: var(--sp-6);">
+      <div class="kpi"><div class="kpi-label">Active flags</div><div class="kpi-value" style="color: var(--danger-400);" x-text="activeCount"></div><div class="kpi-delta down">▲ SLA countdown</div></div>
+      <div class="kpi"><div class="kpi-label">Total flagged (90d)</div><div class="kpi-value" x-text="flags.length"></div><div class="kpi-delta up">Learning</div></div>
+      <div class="kpi"><div class="kpi-label">Est. cumulative loss</div><div class="kpi-value" style="color: var(--gold-400);">₹<span x-text="(totalLoss/100000).toFixed(1)"></span><span class="unit">L</span></div><div class="kpi-delta down">Avoidable</div></div>
+      <div class="kpi"><div class="kpi-label">Total downtime</div><div class="kpi-value"><span x-text="Math.round(totalDowntime/60)"></span><span class="unit">hrs</span></div><div class="kpi-delta down">Cross-fleet</div></div>
+    </div>
+
+    <div class="two-col" style="align-items: start;">
+      <div class="stack">
+        <template x-for="f in flags" :key="f.id">
+          <div class="card-elevated reveal" @click="setFocus(f.id)" :style="`padding: var(--sp-5); cursor: pointer; border-left: 3px solid ${f.status === 'closed' ? 'var(--ok-500)' : f.status === 'investigating' ? 'var(--warn-500)' : 'var(--danger-500)'}; ${focus && focus.id === f.id ? 'box-shadow: 0 0 0 1px var(--accent);' : ''}`">
+            <div class="row-b" style="margin-bottom: var(--sp-3);">
+              <div style="display: flex; align-items: center; gap: var(--sp-2);">
+                <span class="mono" style="font-size: var(--fs-xs); color: var(--accent); letter-spacing: var(--tracking-wide);" x-text="f.id"></span>
+                <span class="chip chip-outline" x-text="f.asset"></span>
+                <span class="chip chip-gold" x-text="'Class ' + f.criticality"></span>
+              </div>
+              <span class="chip" :class="f.status === 'closed' ? 'chip-ok' : f.status === 'investigating' ? 'chip-warn' : 'chip-danger'" x-text="f.status.toUpperCase()"></span>
+            </div>
+            <div style="font-size: var(--fs-md); font-weight: 500; color: var(--text); margin-bottom: 4px;" x-text="f.component"></div>
+            <div style="font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-3);"><span x-text="f.failures_120d"></span> failures in 120 days · <span x-text="f.total_downtime_min"></span> min downtime</div>
+            <div class="row-b" style="padding-top: var(--sp-3); border-top: 1px solid var(--divider);">
+              <div>
+                <div class="field-label">Est. loss</div>
+                <div style="font-family: var(--font-mono); font-size: var(--fs-md); font-weight: 500; color: var(--gold-400); margin-top: 2px;">₹<span x-text="(f.est_loss_inr/100000).toFixed(1)"></span> L</div>
+              </div>
+              <div>
+                <div class="field-label">SLA</div>
+                <div style="font-family: var(--font-mono); font-size: var(--fs-md); font-weight: 500; color: var(--text); margin-top: 2px;"><span x-text="f.sla_hrs"></span> hrs</div>
+              </div>
+              <div>
+                <div class="field-label">Assignee</div>
+                <div style="font-size: var(--fs-sm); color: var(--text); margin-top: 2px;" x-text="f.assigned_to"></div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <div class="card-elevated" x-show="focus" x-cloak style="padding: var(--sp-6); position: sticky; top: calc(var(--topbar-h) + var(--sp-4));">
+        <div class="card-header">
+          <div>
+            <div class="eyebrow">Investigation focus</div>
+            <div class="card-title" x-text="focus?.component + ' · ' + focus?.asset" style="margin-top: 4px;"></div>
+          </div>
+          <span class="chip chip-danger" x-show="focus?.status !== 'closed'" x-cloak>Live</span>
+        </div>
+
+        <div class="field-label" style="margin-bottom: var(--sp-2);">Pattern timeline</div>
+        <div style="position: relative; padding-left: 20px; margin-bottom: var(--sp-6);">
+          <div style="position: absolute; left: 5px; top: 4px; bottom: 4px; width: 1px; background: linear-gradient(180deg, var(--danger-500), var(--accent));"></div>
+          <template x-for="(e, idx) in focus?.timeline || []" :key="idx">
+            <div style="position: relative; margin-bottom: var(--sp-4);">
+              <div style="position: absolute; left: -20px; top: 4px; width: 11px; height: 11px; border-radius: 50%; background: var(--danger-500); border: 2px solid var(--navy-800);"></div>
+              <div style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-dim); letter-spacing: var(--tracking-wide);" x-text="e.d"></div>
+              <div style="font-size: var(--fs-sm); color: var(--text); margin-top: 2px;" x-text="e.evt"></div>
+              <div style="font-size: 11px; color: var(--warn-400); font-family: var(--font-mono); margin-top: 2px;" x-text="e.downtime + ' min downtime'"></div>
+            </div>
+          </template>
+        </div>
+
+        <template x-if="focus?.five_why?.length">
+          <div>
+            <div class="field-label" style="margin-bottom: var(--sp-2);">5-Why decomposition (structured, queryable)</div>
+            <div class="stack" style="gap: var(--sp-2);">
+              <template x-for="(w, idx) in focus.five_why" :key="idx">
+                <div style="padding: var(--sp-3); background: var(--navy-700); border-radius: var(--r-sm);">
+                  <div style="font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: var(--tracking-wide); margin-bottom: 4px;" x-text="'WHY #' + (idx+1)"></div>
+                  <div style="font-size: var(--fs-sm); color: var(--text); font-weight: 500; margin-bottom: 4px;" x-text="w.q"></div>
+                  <div style="font-size: var(--fs-sm); color: var(--text-soft);" x-text="w.a"></div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </template>
+        <template x-if="!focus?.five_why?.length">
+          <div style="padding: var(--sp-4); background: var(--navy-700); border-radius: var(--r-md); text-align: center; color: var(--text-muted); font-size: var(--fs-sm);">
+            Investigation not yet started — 5-Why capture required by SLA.
+          </div>
+        </template>
+
+        <div class="row" style="margin-top: var(--sp-5); gap: var(--sp-3);">
+          <button class="btn btn-primary btn-sm" @click="PARI_UI.flagEdit(focus)">Open investigation <i data-icon="arrow_right" style="width:14px;height:14px;"></i></button>
+          <button class="btn btn-ghost btn-sm" @click="PARI_UI.benchmark(focus)">Add to benchmark dataset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top: var(--sp-8); border: 1px solid var(--border); padding: var(--sp-6); background: linear-gradient(180deg, var(--navy-800) 0%, var(--navy-700) 100%);">
+      <div class="row-b" style="margin-bottom: var(--sp-3);">
+        <div class="eyebrow">ML pipeline · dataset</div>
+        <span class="chip chip-gold">Live</span>
+      </div>
+      <h4 style="margin-bottom: var(--sp-2);">Every flag becomes training data.</h4>
+      <p style="font-size: var(--fs-sm); color: var(--text-muted); max-width: 800px;">
+        This module was designed from day one to be ML-ready, not bolted on later. Structured 5-Why + fault-tree captures + cross-tenant benchmark_snapshots feed the future failure-prediction model. Rows never leave your tenant without explicit opt-in.
+      </p>
+    </div>
+  </div>
+</main>
+
+<script>
+document.addEventListener('alpine:initialized', () => {
+  const paint = () => document.querySelectorAll('[data-icon]').forEach(el => { const n = el.dataset.icon; if (window.PARI_ICONS && window.PARI_ICONS[n] && !el.innerHTML) el.innerHTML = window.PARI_ICONS[n]; });
+  setTimeout(paint, 60);
+  document.addEventListener('click', () => setTimeout(paint, 40));
+});
+</script>
+</body>
+</html>

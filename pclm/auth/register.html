@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request access · Pari Solutions</title>
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
+<style>
+  .auth { display: grid; grid-template-columns: 1.05fr 1fr; min-height: 100vh; }
+  .auth-visual {
+    position: relative; background: var(--navy-800); overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: var(--sp-10); border-right: 1px solid var(--divider);
+  }
+  .auth-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 40% at 30% 30%, rgba(207, 174, 113, 0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .auth-brand { position: relative; z-index: 1; display: flex; align-items: center; gap: var(--sp-3); color: var(--text); }
+  .auth-brand-name { font-weight: 300; font-size: 1.1rem; letter-spacing: 0.28em; text-transform: uppercase; }
+  .auth-brand-name em { color: var(--accent); font-family: var(--font-mono); font-size: 0.68em; letter-spacing: var(--tracking-widest); margin-left: 6px; font-style: normal; }
+  .hero-blueprint-full {
+    position: absolute; inset: -40px;
+    background-image:
+      linear-gradient(to right, rgba(59, 88, 117, 0.16) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(59, 88, 117, 0.16) 1px, transparent 1px);
+    background-size: 48px 48px;
+    animation: blueprint-drift 60s linear infinite;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
+    pointer-events: none;
+  }
+  .auth-timeline { position: relative; z-index: 1; max-width: 480px; }
+  .auth-timeline h2 { font-size: var(--fs-2xl); font-weight: 300; letter-spacing: -0.015em; margin: var(--sp-3) 0 var(--sp-6); }
+  .auth-timeline ol { list-style: none; display: flex; flex-direction: column; gap: var(--sp-5); position: relative; }
+  .auth-timeline ol::before {
+    content: '';
+    position: absolute;
+    left: 15px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--border) 100%);
+  }
+  .auth-timeline li { display: flex; gap: var(--sp-4); align-items: flex-start; position: relative; transition: opacity var(--dur-3) var(--ease-out); }
+  .auth-timeline li.is-dim { opacity: 0.45; }
+  .auth-timeline li .n {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--navy-700);
+    border: 1px solid var(--border-strong);
+    color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-weight: 600;
+    font-size: var(--fs-sm);
+    z-index: 1;
+  }
+  .auth-timeline li.is-active .n { background: var(--accent); color: var(--navy-900); border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .auth-timeline li.is-done .n { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  .auth-timeline li .body h4 { font-size: var(--fs-md); font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .auth-timeline li .body p { font-size: var(--fs-sm); color: var(--text-muted); }
+
+  .auth-form-wrap { display: flex; align-items: center; justify-content: center; padding: var(--sp-10); background: var(--navy-900); }
+  .auth-form { width: 100%; max-width: 460px; }
+  .auth-form h1 { font-size: var(--fs-2xl); font-weight: 300; letter-spacing: -0.015em; margin: var(--sp-2) 0 var(--sp-2); }
+  .auth-form .lede { color: var(--text-muted); font-size: var(--fs-sm); margin-bottom: var(--sp-8); }
+  .form-stack { display: flex; flex-direction: column; gap: var(--sp-4); }
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+  .step-progress {
+    display: flex; align-items: center; gap: var(--sp-2);
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: var(--tracking-widest); text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: var(--sp-4);
+  }
+  .step-bar { flex: 1; height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; position: relative; }
+  .step-bar-fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: var(--accent);
+    transition: width var(--dur-4) var(--ease-out);
+    border-radius: 2px;
+  }
+  .auth-back { color: var(--text-muted); font-size: var(--fs-sm); display: inline-flex; align-items: center; gap: 6px; margin-bottom: var(--sp-6); }
+  .auth-back:hover { color: var(--accent); }
+  .form-footer { display: flex; justify-content: space-between; align-items: center; margin-top: var(--sp-6); }
+  @media (max-width: 900px) {
+    .auth { grid-template-columns: 1fr; }
+    .auth-visual { display: none; }
+    .form-grid-2 { grid-template-columns: 1fr; }
+  }
+</style>
+<script src="../assets/js/app-health.js"></script>
+<script src="../assets/js/mock-data.js"></script>
+<script src="../assets/js/server-client.js"></script>
+<script src="../assets/js/store.js"></script>
+<script defer src="../assets/js/app.js"></script>
+<script defer src="../assets/js/workflows.js"></script>
+<script defer src="../assets/js/lifecycle.js"></script>
+<script defer src="../assets/vendor/alpine-3.14.1.min.js"></script>
+<link rel="stylesheet" href="../assets/css/workflows.css">
+<link rel="stylesheet" href="../assets/css/lifecycle.css">
+<link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#0A121C">
+</head>
+<body>
+
+<main class="auth">
+  <aside class="auth-visual">
+    <div class="hero-blueprint-full"></div>
+    <a href="../index.html" class="auth-brand">
+      <img src="../assets/img/logo-mark.svg" alt="" width="32" height="32">
+      <span class="auth-brand-name">Pari<em>Solutions</em></span>
+    </a>
+
+    <div class="auth-timeline" x-data="{ step: 1 }" @pari:register-step.document="step = $event.detail">
+      <span class="eyebrow">Enterprise onboarding</span>
+      <h2>Three steps to your test workspace.</h2>
+      <ol>
+        <li :class="step === 1 ? 'is-active' : step > 1 ? 'is-done' : 'is-dim'">
+          <div class="n">1</div>
+          <div class="body">
+            <h4>Your organization</h4>
+            <p>We create your tenant, region, and data residency zone.</p>
+          </div>
+        </li>
+        <li :class="step === 2 ? 'is-active' : step > 2 ? 'is-done' : 'is-dim'">
+          <div class="n">2</div>
+          <div class="body">
+            <h4>Your first plant</h4>
+            <p>State jurisdiction, plant code, timezone. Loads the compliance calendar.</p>
+          </div>
+        </li>
+        <li :class="step === 3 ? 'is-active' : 'is-dim'">
+          <div class="n">3</div>
+          <div class="body">
+            <h4>Admin credentials</h4>
+            <p>You become Organization Admin with full org-scoped permissions.</p>
+          </div>
+        </li>
+      </ol>
+      <div style="margin-top: var(--sp-8); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-dim); letter-spacing: var(--tracking-wide);">
+        Typical setup · 4 min · Local evaluation · no live SSO
+      </div>
+    </div>
+
+    <div style="position: relative; z-index: 1; font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: var(--tracking-wide); text-transform: uppercase;">
+      Local test build · synthetic data only
+    </div>
+  </aside>
+
+  <section class="auth-form-wrap">
+    <div class="auth-form" x-data="registerFlow">
+      <a href="../index.html" class="auth-back"><i data-icon="chevron" style="transform: rotate(180deg); width: 14px; height: 14px;"></i> Back to home</a>
+
+      <div class="step-progress">
+        <span>Step <span x-text="step"></span> of 3</span>
+        <div class="step-bar"><div class="step-bar-fill" :style="`width: ${(step/3)*100}%`"></div></div>
+      </div>
+
+      <div x-show="step === 1" x-cloak x-transition.opacity>
+        <span class="eyebrow">Organization</span>
+        <h1>Tell us about your company.</h1>
+        <p class="lede">We use this to provision your tenant and set the correct data residency zone.</p>
+
+        <div class="form-stack">
+          <div class="field">
+            <label class="field-label" for="orgName">Organization name</label>
+            <input class="input" id="orgName" x-model="org.name" placeholder="e.g. Ramchandra Industrial Group">
+          </div>
+          <div class="form-grid-2">
+            <div class="field">
+              <label class="field-label" for="industry">Industry</label>
+              <select class="select" id="industry" x-model="org.industry">
+                <option>Steel &amp; metals</option>
+                <option>Ports &amp; logistics</option>
+                <option>Cement &amp; aggregates</option>
+                <option>Auto manufacturing</option>
+                <option>Fabrication &amp; EPC</option>
+                <option>Power generation</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label" for="gstin">GSTIN <span style="text-transform:none; color: var(--text-dim);">(optional)</span></label>
+              <input class="input" id="gstin" x-model="org.gstin" placeholder="22AAAAA0000A1Z5">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <a href="login.html" style="font-size: var(--fs-sm); color: var(--text-muted);">Already have an account?</a>
+          <button class="btn btn-primary" @click="next()">Continue <i data-icon="arrow_right"></i></button>
+        </div>
+      </div>
+
+      <div x-show="step === 2" x-cloak x-transition.opacity>
+        <span class="eyebrow">First plant</span>
+        <h1>Add your first plant.</h1>
+        <p class="lede">You can add more plants later. The state jurisdiction determines your compliance calendar.</p>
+
+        <div class="form-stack">
+          <div class="field">
+            <label class="field-label" for="plantName">Plant name</label>
+            <input class="input" id="plantName" x-model="plant.name" placeholder="e.g. Jamshedpur Steel Works">
+          </div>
+          <div class="field">
+            <label class="field-label" for="state">State jurisdiction</label>
+            <select class="select" id="state" x-model="plant.state">
+              <option>Maharashtra</option>
+              <option>Jharkhand</option>
+              <option>Karnataka</option>
+              <option>Tamil Nadu</option>
+              <option>Andhra Pradesh</option>
+              <option>Gujarat</option>
+              <option>Odisha</option>
+              <option>Uttar Pradesh</option>
+            </select>
+            <span class="field-hint">Loads the correct Factories Act inspectorate rules.</span>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <button class="btn btn-ghost" @click="back()"><i data-icon="chevron" style="transform: rotate(180deg);"></i> Back</button>
+          <button class="btn btn-primary" @click="next()">Continue <i data-icon="arrow_right"></i></button>
+        </div>
+      </div>
+
+      <div x-show="step === 3" x-cloak x-transition.opacity>
+        <span class="eyebrow">Administrator</span>
+        <h1>Create your admin account.</h1>
+        <p class="lede">You'll be the Organization Admin. You can invite plant-scoped users after setup.</p>
+
+        <div class="form-stack">
+          <div class="form-grid-2">
+            <div class="field">
+              <label class="field-label" for="adminName">Full name</label>
+              <input class="input" id="adminName" x-model="admin.name" placeholder="Your name">
+            </div>
+            <div class="field">
+              <label class="field-label" for="adminPhone">Phone</label>
+              <input class="input" id="adminPhone" x-model="admin.phone" placeholder="+91 ...">
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="adminEmail">Work email</label>
+            <input class="input" type="email" id="adminEmail" x-model="admin.email" placeholder="you@company.in">
+          </div>
+          <div class="field">
+            <label class="field-label" for="adminPw">Password</label>
+            <input class="input" type="password" id="adminPw" x-model="admin.password" placeholder="12+ characters">
+            <span class="field-hint">Minimum 12 characters. Enable authenticator MFA from your profile after sign-in.</span>
+          </div>
+          <label style="display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); color: var(--text-muted); margin-top: var(--sp-2);">
+            <input type="checkbox" class="checkbox" x-model="agreed">
+            I agree to the <a href="#" @click.prevent="PARI_UI.dialog('Test terms', '<p class=&quot;pari-note&quot;>This evaluation workspace supports shared test accounts. No commercial service agreement is created by this form.</p>')">Terms</a> and <a href="#" @click.prevent="PARI_UI.dialog('Test data privacy', '<p class=&quot;pari-note&quot;>Workspace records and uploaded originals are stored on the PCLM server. Offline drafts are retained on this device until synchronised. Email delivery requires configured transport; SSO requires a provider integration.</p>')">Privacy Policy</a>.
+          </label>
+        </div>
+
+        <div class="form-footer">
+          <button class="btn btn-ghost" @click="back()"><i data-icon="chevron" style="transform: rotate(180deg);"></i> Back</button>
+          <a href="#" @click.prevent="create()" class="btn btn-primary">Create tenant <i data-icon="arrow_right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

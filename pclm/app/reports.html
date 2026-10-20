@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reliability & Cost Reports · Pari Solutions</title>
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="../assets/js/app-health.js"></script>
+<script src="../assets/js/mock-data.js"></script>
+<script src="../assets/js/server-client.js"></script>
+<script src="../assets/js/store.js"></script>
+<script defer src="../assets/js/app.js"></script>
+<script defer src="../assets/js/workflows.js"></script>
+<script defer src="../assets/js/lifecycle.js"></script>
+<script defer src="../assets/vendor/alpine-3.14.1.min.js"></script>
+<link rel="stylesheet" href="../assets/css/workflows.css">
+<link rel="stylesheet" href="../assets/css/lifecycle.css">
+<link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#0A121C">
+</head>
+<body x-data="shell" :class="collapsed ? 'app is-collapsed' : 'app'">
+
+<button class="pari-backdrop" x-show="mobileOpen" x-cloak @click="mobileOpen = false" aria-label="Close sidebar"></button>
+<aside class="sidebar" :class="{ 'is-collapsed': collapsed &amp;&amp; !mobileOpen, 'is-mobile-open': mobileOpen }">
+  <a href="../index.html" class="sidebar-brand">
+    <img class="mark" src="../assets/img/logo-mark.svg" alt="">
+    <span class="name sidebar-label">Pari</span>
+  </a>
+
+<div class="sidebar-section sidebar-label">Overview</div><nav class="sidebar-nav"><a href="dashboard.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reliability</span></a><a href="cranes.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Cranes</span></a></nav>
+<div class="sidebar-section sidebar-label">Customers & Commercial</div><nav class="sidebar-nav"><a href="customers.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Customers</span></a><a href="plants.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Plants & Sites</span></a><a href="enquiries.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Enquiries</span></a><a href="quotations.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Quotations</span></a><a href="contracts.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Contracts & Renewals</span></a></nav>
+<div class="sidebar-section sidebar-label">Engineering & Projects</div><nav class="sidebar-nav"><a href="requirements.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Requirements & Specs</span></a><a href="engineering-reviews.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Drawing & Technical Reviews</span></a><a href="vendor-comparisons.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Vendor Comparisons</span></a><a href="projects.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Projects</span></a><a href="project-tasks.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Tasks & Punch List</span></a><a href="commissioning.html" class="sidebar-link"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Commissioning & Handover</span></a></nav>
+<div class="sidebar-section sidebar-label">Operations</div><nav class="sidebar-nav"><a href="components.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Components</span></a><a href="inspections.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspections</span></a><a href="checklists.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspection Templates</span></a><a href="pm-schedule.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Preventive Maintenance</span></a><a href="pm-rules.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">PM Rules</span></a><a href="usage.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Operating Readings</span></a><a href="breakdowns.html" class="sidebar-link"><i class="icon" data-icon="breakdown"></i><span class="sidebar-label">Breakdowns</span></a><a href="repeat-failure.html" class="sidebar-link"><i class="icon" data-icon="brain"></i><span class="sidebar-label">Repeat-Failure</span></a></nav>
+<div class="sidebar-section sidebar-label">Service & Supply</div><nav class="sidebar-nav"><a href="service-requests.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Service Requests</span></a><a href="work-orders.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Work Orders</span></a><a href="visits.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Technician Visits</span></a><a href="spares.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Critical Spares</span></a><a href="procurement.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Purchase Requests</span></a><a href="partners.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Suppliers & Partners</span></a></nav>
+<div class="sidebar-section sidebar-label">Lifecycle & Governance</div><nav class="sidebar-nav"><a href="modernizations.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Modernization</span></a><a href="documents.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Documents & Certs</span></a><a href="statutory.html" class="sidebar-link"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Statutory Calendar</span></a><a href="approvals.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Approvals</span></a><a href="reports.html" class="sidebar-link is-active"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reports</span></a></nav>
+<div class="sidebar-section sidebar-label">Admin</div><nav class="sidebar-nav"><a href="notifications.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Notifications</span></a><a href="users.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Users & Roles</span></a><a href="customer-portal.html" class="sidebar-link"><i class="icon" data-icon="eye"></i><span class="sidebar-label">Customer Portal</span></a></nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="avatar">RM</div>
+      <div class="who sidebar-label">
+        <span class="name">Ravi Mehta</span>
+        <span class="role">Reliability Manager</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="app-main">
+  <div class="topbar">
+    <button class="collapse-btn" @click="toggleCollapse()" aria-label="Toggle sidebar"><i data-icon="menu"></i></button>
+    <div class="breadcrumbs">
+      <span>Jamshedpur Steel Works</span>
+      <span class="sep">/</span>
+      <span class="current">Reliability & Cost Reports</span>
+    </div>
+    <div class="topbar-search">
+      <i data-icon="search"></i>
+      <input class="input" type="search" placeholder="Search cranes, components, inspections…">
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="plant-switcher">
+      <div class="plant-icon"><i data-icon="layers"></i></div>
+      <div>
+        <div class="plant-name">Jamshedpur SW</div>
+        <div class="plant-role">42 cranes · JH</div>
+      </div>
+      <i data-icon="chevron_down" style="color: var(--text-dim); width: 14px; height: 14px;"></i>
+    </div>
+    <button class="topbar-icon"><i data-icon="bell"></i><span class="dot"></span></button>
+    <button class="topbar-icon"><i data-icon="brain"></i></button>
+  </div>
+
+<div class="content" x-data="lifecyclePage">
+ <div class="page-head"><div><div class="eyebrow" style="margin-bottom:var(--sp-2)" x-text="definition.group"></div><h1 class="page-title" x-text="definition.title"></h1><p class="page-lede" x-text="definition.lede"></p></div><div class="page-actions"><button class="btn btn-secondary btn-sm" @click="exportRows()"><i data-icon="download"></i> Export</button><button class="btn btn-primary btn-sm" x-show="canCreate" @click="create()"><i data-icon="plus"></i><span x-text="definition.add"></span></button></div></div>
+ <div class="kpi-grid lifecycle-kpis reveal" x-show="key !== 'reports'"><div class="kpi"><div class="kpi-label">Records</div><div class="kpi-value" x-text="records.length"></div><div class="kpi-delta up">Shared workspace</div></div><div class="kpi"><div class="kpi-label">Open / active</div><div class="kpi-value" x-text="openCount"></div><div class="kpi-delta up">In progress</div></div><div class="kpi"><div class="kpi-label">Approved / complete</div><div class="kpi-value" x-text="approvedCount"></div><div class="kpi-delta up">Recorded decisions</div></div><div class="kpi"><div class="kpi-label">Past target / renewal</div><div class="kpi-value" x-text="overdueCount"></div><div class="kpi-delta down">Review dates</div></div></div>
+ <div class="filter-bar reveal" x-show="key !== 'reports'"><div class="search-inline"><i data-icon="search"></i><input class="input" type="search" x-model="q" placeholder="Search these records…"></div><select class="select" x-model="status"><option value="all">All statuses</option><template x-for="value in statuses" :key="value"><option :value="value" x-text="value.replace(/_/g,' ')"></option></template></select><span class="mono text-dim" style="font-size:12px"><span x-text="filtered.length"></span> of <span x-text="records.length"></span></span></div>
+ <div class="table-wrap reveal" x-show="key !== 'reports'"><table class="table"><thead><tr><template x-for="col in definition.columns" :key="col"><th x-text="col.replace(/_id$/,'').replace(/_/g,' ')"></th></template><th></th></tr></thead><tbody><template x-for="record in filtered" :key="record.id"><tr class="pari-clickable" tabindex="0" @click="open(record.id)" @keydown.enter="open(record.id)"><template x-for="col in definition.columns" :key="col"><td><span :class="col === 'status' || col === 'decision' ? 'chip chip-outline' : ''" x-text="PARI_LIFECYCLE.display(col,record[col])"></span></td></template><td><i data-icon="chevron"></i></td></tr></template></tbody></table><div class="empty" x-show="!filtered.length"><h5>No matching records</h5><p class="pari-note">Create a record or adjust your filters.</p></div></div>
+ <section x-show="key === 'reports'" x-cloak><div class="filter-bar"><label class="field-label">From<input class="input" type="date" x-model="from"></label><label class="field-label">To<input class="input" type="date" x-model="to"></label></div><p class="pari-note">MTTR uses closed breakdown downtime. MTBF uses the difference between at least two cumulative operating-hour readings and recorded failures in this period. Missing input remains blank. Costs are recorded estimates.</p><div class="table-wrap"><table class="table"><thead><tr><th>Asset</th><th>Failures</th><th>Downtime min</th><th>MTTR min</th><th>Operating hours</th><th>MTBF hours</th><th>PM %</th><th>Labour hours</th></tr></thead><tbody><template x-for="row in reportRows" :key="row.asset"><tr><td x-text="row.asset"></td><td x-text="row.breakdowns"></td><td x-text="row.downtime_min"></td><td x-text="row.mttr_min ?? '—'"></td><td x-text="row.operating_hours ?? '—'"></td><td x-text="row.mtbf_hours ?? '—'"></td><td x-text="row.pm_compliance ?? '—'"></td><td x-text="row.service_labour_hours"></td></tr></template></tbody></table></div><div class="pari-list" style="margin-top:18px"><template x-for="row in reportRows" :key="row.asset"><div class="pari-list-item"><strong x-text="row.asset"></strong><p x-text="row.data_quality"></p></div></template></div></section>
+</div>
+</main>
+
+
+
+</body>
+</html>

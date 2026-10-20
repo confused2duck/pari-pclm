@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pari Solutions — The Crane Reliability Operating System</title>
+<meta name="description" content="Pari Solutions is the system of record for crane reliability. Inspections, preventive maintenance, breakdowns, and statutory compliance — engineered for large industrial groups.">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/motion.css">
+<link rel="stylesheet" href="assets/css/marketing.css">
+<script src="assets/js/app-health.js"></script>
+<script src="assets/js/mock-data.js"></script>
+<script src="assets/js/server-client.js"></script>
+<script src="assets/js/store.js"></script>
+<script defer src="assets/js/app.js"></script>
+<script defer src="assets/js/workflows.js"></script>
+<script defer src="assets/vendor/alpine-3.14.1.min.js"></script>
+<link rel="stylesheet" href="assets/css/workflows.css">
+</head>
+<body x-data="{}">
+
+<nav class="mk-nav">
+  <div class="container mk-nav-inner">
+    <a href="/" class="mk-brand" aria-label="Pari Solutions home">
+      <img class="mk-brand-mark" src="assets/img/logo-mark.svg" alt="">
+      <span class="mk-brand-name">Pari<em>Solutions</em></span>
+    </a>
+    <ul class="mk-nav-links">
+      <li><a href="#platform">Platform</a></li>
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#compliance">Compliance</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#customers">Customers</a></li>
+    </ul>
+    <div class="mk-nav-cta">
+      <a href="auth/login.html" class="btn btn-ghost btn-sm">Sign in</a>
+      <a href="contact.html" class="btn btn-primary btn-sm">Request access <i data-icon="arrow_right" style="width:14px;height:14px;display:flex;"></i></a>
+    </div>
+  </div>
+</nav>
+
+<header class="mk-hero">
+  <div class="blueprint-grid" aria-hidden="true"></div>
+  <div class="container mk-hero-inner">
+    <div>
+      <span class="eyebrow reveal">The Crane Reliability OS · v1.0</span>
+      <h1 class="reveal reveal-delay-1">
+        The system of record for<br>
+        <em>crane reliability.</em>
+      </h1>
+      <p class="mk-hero-lede reveal reveal-delay-2">
+        Not a CMMS with a crane skin. Pari understands cranes as a first-class domain —
+        duty class, FEM/ISO classification, component taxonomy — and converts every inspection
+        finding into a maintenance action, automatically. Built for large industrial groups.
+      </p>
+      <div class="mk-hero-actions reveal reveal-delay-3">
+        <a href="contact.html" class="btn btn-primary btn-lg">Book a walkthrough <i data-icon="arrow_right"></i></a>
+        <a href="#platform" class="btn btn-secondary btn-lg">See the platform</a>
+      </div>
+      <div class="mk-hero-meta reveal reveal-delay-4">
+        <span><i class="dot"></i> Factories Act §29 ready</span>
+        <span><i class="dot"></i> IS 3177 / IS 807 native</span>
+        <span><i class="dot"></i> Enterprise SSO + audit log</span>
+      </div>
+    </div>
+
+    <div class="mk-hero-visual reveal reveal-right reveal-delay-2">
+      <div class="hero-blueprint"></div>
+
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span>Monitoring · 86 cranes across 3 plants</span>
+      </div>
+
+      <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <line x1="40"  y1="120" x2="460" y2="120" stroke="#3B5875" stroke-width="1" opacity="0.6"/>
+        <line x1="40"  y1="130" x2="460" y2="130" stroke="#3B5875" stroke-width="1" opacity="0.4"/>
+        <rect x="80" y="140" width="340" height="18" fill="#152838" stroke="#3B5875" stroke-width="1"/>
+        <rect x="80" y="152" width="340" height="6" fill="#0E1A26"/>
+        <rect x="230" y="128" width="60" height="30" fill="#17293B" stroke="#3B5875" stroke-width="1"/>
+        <circle cx="245" cy="132" r="2" fill="#CFAE71"/>
+        <circle cx="275" cy="132" r="2" fill="#CFAE71"/>
+        <path class="trace" style="--trace-len: 200"
+              d="M260,158 L260,260" stroke="#CFAE71" stroke-width="1.6" fill="none"/>
+        <g class="hook-swing" transform-origin="260 158">
+          <line x1="260" y1="158" x2="260" y2="260" stroke="#CFAE71" stroke-width="1.6"/>
+          <rect x="248" y="260" width="24" height="14" fill="#17293B" stroke="#CFAE71" stroke-width="1.2"/>
+          <circle cx="260" cy="284" r="4.5" fill="#E4C372"/>
+          <path d="M254 296 A6 8 0 0 0 266 296" stroke="#CFAE71" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </g>
+        <rect x="80"  y="100" width="30" height="60" fill="#17293B" stroke="#3B5875" stroke-width="1"/>
+        <rect x="390" y="100" width="30" height="60" fill="#17293B" stroke="#3B5875" stroke-width="1"/>
+        <g font-family="IBM Plex Mono, monospace" font-size="9" fill="#CFAE71" opacity="0.8">
+          <line x1="80"  y1="180" x2="80"  y2="200" stroke="#CFAE71" stroke-width="0.6"/>
+          <line x1="420" y1="180" x2="420" y2="200" stroke="#CFAE71" stroke-width="0.6"/>
+          <line x1="80"  y1="200" x2="420" y2="200" stroke="#CFAE71" stroke-width="0.6"/>
+          <text x="250" y="215" text-anchor="middle">SPAN · 24.5 m</text>
+          <line x1="440" y1="140" x2="470" y2="140" stroke="#CFAE71" stroke-width="0.6"/>
+          <line x1="440" y1="260" x2="470" y2="260" stroke="#CFAE71" stroke-width="0.6"/>
+          <line x1="470" y1="140" x2="470" y2="260" stroke="#CFAE71" stroke-width="0.6"/>
+          <text x="480" y="202" text-anchor="start">LIFT · 22 m</text>
+          <text x="80"  y="88" fill="#8A9CB2" font-size="9">▲  ASSET · JSW-EOT-14</text>
+          <text x="80"  y="360" fill="#8A9CB2" font-size="9">DUTY · M7  |  KONE XN500  |  CAP · 120 t</text>
+          <text x="80"  y="376" fill="#4FBE8C" font-size="9">◉ PM COMPLIANCE · 84%   ◉ MTBF · 620 h</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section class="mk-trust">
+  <div class="mk-trust-label">Engineered for the industries that cannot afford downtime</div>
+  <div class="mk-trust-logos">
+    <span><i class="dot"></i> Integrated Steel</span>
+    <span><i class="dot"></i> Ports &amp; Logistics</span>
+    <span><i class="dot"></i> Cement &amp; Aggregates</span>
+    <span><i class="dot"></i> Auto Manufacturing</span>
+    <span><i class="dot"></i> Fabrication &amp; EPC</span>
+    <span><i class="dot"></i> Power Generation</span>
+  </div>
+</section>
+
+<section class="mk-section" id="platform">
+  <div class="container">
+    <div class="mk-position reveal">
+      <div class="mk-position-inner">
+        <div class="mk-position-not">
+          <h3 class="eyebrow" style="color: var(--text-dim); margin-bottom: var(--sp-3);">What Pari is not</h3>
+          <ul>
+            <li><span class="strike">A generic CMMS with a crane skin</span></li>
+            <li><span class="strike">A maintenance log people fill out after the fact</span></li>
+            <li><span class="strike">A dashboard that shows what already broke</span></li>
+            <li><span class="strike">Free-text root cause fields nobody can query</span></li>
+            <li><span class="strike">A compliance folder on a shared drive</span></li>
+          </ul>
+        </div>
+        <div class="mk-position-is">
+          <h3 class="eyebrow" style="margin-bottom: var(--sp-3);">What Pari is</h3>
+          <ul>
+            <li>A domain model that understands duty class, FEM/ISO classification, and component taxonomy</li>
+            <li>An engine that turns every failing inspection item into a corrective action, automatically</li>
+            <li>Pattern detection that catches repeat failures no human reviewing individual work orders would</li>
+            <li>Structured root-cause capture (5-Why, fishbone) — queryable, benchmarkable, ML-ready from day one</li>
+            <li>A state-jurisdiction-aware compliance calendar with one-click auditor reports</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mk-section mk-section-alt" id="modules">
+  <div class="container">
+    <div class="mk-section-head reveal">
+      <span class="eyebrow">Ten integrated modules</span>
+      <h2>Every layer of crane reliability, from one operating system.</h2>
+      <p>Data flows across modules by design. A failing inspection item spawns a corrective action. A repeat failure recalculates the PM interval. A certificate expiry schedules the next statutory inspection.</p>
+    </div>
+    <div class="mk-modules">
+      <a class="mk-module reveal" href="app/cranes.html">
+        <div class="mk-module-num">01</div>
+        <div class="mk-module-icon"><i data-icon="cranes"></i></div>
+        <h4>Asset Registry</h4>
+        <p>Hierarchical cranes → components with duty class, FEM/ISO fields, life hours, and criticality — not a flat list.</p>
+      </a>
+      <a class="mk-module reveal reveal-delay-1" href="app/inspections.html">
+        <div class="mk-module-num">02</div>
+        <div class="mk-module-icon"><i data-icon="inspection"></i></div>
+        <h4>Inspection Engine</h4>
+        <p>Versioned checklists, conditional logic, and auto-generated corrective actions on any FAIL above severity.</p>
+      </a>
+      <a class="mk-module reveal reveal-delay-2" href="app/pm-schedule.html">
+        <div class="mk-module-num">03</div>
+        <div class="mk-module-icon"><i data-icon="pm"></i></div>
+        <h4>Preventive Maintenance</h4>
+        <p>Intervals computed from duty class × utilization × condition triggers. Recalculates after every event.</p>
+      </a>
+      <a class="mk-module reveal reveal-delay-3" href="app/breakdowns.html">
+        <div class="mk-module-num">04</div>
+        <div class="mk-module-icon"><i data-icon="breakdown"></i></div>
+        <h4>Breakdown &amp; Root Cause</h4>
+        <p>Structured 5-Why / fishbone capture. MTTR / MTBF computed automatically. Every incident becomes queryable data.</p>
+      </a>
+      <a class="mk-module reveal" href="app/repeat-failure.html">
+        <div class="mk-module-num">05</div>
+        <div class="mk-module-icon"><i data-icon="brain"></i></div>
+        <h4>Repeat-Failure Intelligence</h4>
+        <p>Background job on every event checks failure count within a rolling window per criticality class. ML-ready seed.</p>
+      </a>
+      <a class="mk-module reveal reveal-delay-1" href="app/dashboard.html">
+        <div class="mk-module-num">06</div>
+        <div class="mk-module-icon"><i data-icon="gauge"></i></div>
+        <h4>Reliability Dashboard</h4>
+        <p>Downtime-to-₹ translation using plant-configured loss rates. The number a plant manager actually cares about.</p>
+      </a>
+      <a class="mk-module reveal reveal-delay-2" href="app/documents.html">
+        <div class="mk-module-num">07</div>
+        <div class="mk-module-icon"><i data-icon="cert"></i></div>
+        <h4>Documents &amp; Certificates</h4>
+        <p>Structured metadata attached to Crane/Component. Expiry-driven — a load-test cert auto-schedules the next inspection.</p>
+      </a>
+      <a class="mk-module reveal reveal-delay-3" href="app/statutory.html">
+        <div class="mk-module-num">08</div>
+        <div class="mk-module-icon"><i data-icon="compliance"></i></div>
+        <h4>Statutory &amp; Compliance</h4>
+        <p>State-jurisdiction-aware. TPI agency workflow. IS 3177 / IS 807 native. One-click auditor reports.</p>
+      </a>
+      <a class="mk-module reveal" href="app/spares.html">
+        <div class="mk-module-num">09</div>
+        <div class="mk-module-icon"><i data-icon="spares"></i></div>
+        <h4>Critical Spares</h4>
+        <p>Component-linked mapping with min-stock thresholds. Auto-decrement on consumption, purchase alerts when low.</p>
+      </a>
+      <a class="mk-module reveal reveal-delay-1" href="app/notifications.html">
+        <div class="mk-module-num">10</div>
+        <div class="mk-module-icon"><i data-icon="bell"></i></div>
+        <h4>Notifications &amp; Customer Portal</h4>
+        <p>Event-driven, per-role subscription. Read-scoped plant view separates operational data from customer-facing dashboards.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" id="engine">
+  <div class="container">
+    <div class="mk-section-head reveal">
+      <span class="eyebrow">Inside the platform</span>
+      <h2>Purpose-built where CMMS platforms plateau.</h2>
+    </div>
+
+    <div class="mk-dive reveal">
+      <div class="mk-dive-body">
+        <span class="chip chip-gold">Module 02 · Inspection Engine</span>
+        <h3>Every finding becomes a corrective action, without re-entry.</h3>
+        <p>Checklists are data — Checklist → Section → Item, versioned. A FAIL on brake lining condition forces a mandatory air-gap measurement. A response above a configured severity opens a corrective action assigned to the right role, dated against the right SLA. No back-office triage.</p>
+        <ul class="mk-dive-points">
+          <li>Versioned templates — historical inspections stay pinned to the version used</li>
+          <li>Conditional follow-ups drive complete-and-correct capture</li>
+          <li>Parallel checklist types per crane: daily / weekly / monthly / annual / statutory / commissioning</li>
+        </ul>
+      </div>
+      <div class="mk-dive-visual">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: var(--tracking-wide); text-transform: uppercase; margin-bottom: 12px;">Monthly PM · JSW-EOT-22</div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--navy-700); border-radius: 8px;">
+            <span class="sev-dot sev-major"></span>
+            <div style="flex:1">
+              <div style="font-size: 13px; color: var(--text);">Brake lining thickness</div>
+              <div style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono);">FAIL · measurement 4.2 mm · below 5 mm threshold</div>
+            </div>
+            <span class="chip chip-warn">Action opened</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--navy-700); border-radius: 8px;">
+            <span class="sev-dot sev-minor"></span>
+            <div style="flex:1">
+              <div style="font-size: 13px; color: var(--text);">Wire rope visual</div>
+              <div style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono);">FAIL · local kink at 3.2 m from hook block</div>
+            </div>
+            <span class="chip chip-info">Action opened</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--navy-700); border-radius: 8px; opacity: 0.7;">
+            <span class="sev-dot sev-ok"></span>
+            <div style="flex:1">
+              <div style="font-size: 13px; color: var(--text);">Limit switch operation</div>
+              <div style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono);">PASS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mk-dive mk-dive-reverse reveal">
+      <div class="mk-dive-body">
+        <span class="chip chip-gold">Module 05 · Repeat-Failure Intelligence</span>
+        <h3>Catch the pattern no engineer has time to notice.</h3>
+        <p>A background job on every event checks failure count on the same component_id within a rolling window (default 120 days, per-criticality configurable). When it fires: total downtime, ₹ production loss from the plant's configured cost rate, and a mandatory root-cause investigation opened to the Reliability Manager.</p>
+        <ul class="mk-dive-points">
+          <li>Designed from day one to be ML-ready, not bolted on later</li>
+          <li>Cross-tenant benchmark snapshots, anonymized and opt-in</li>
+          <li>The seed data for future failure-prediction models — structured, not free text</li>
+        </ul>
+      </div>
+      <div class="mk-dive-visual">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--danger-400); letter-spacing: var(--tracking-wide); text-transform: uppercase; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 8px;">
+          <span class="pulse-dot" style="color: var(--danger-500); width: 8px; height: 8px;"></span>
+          Repeat-failure flag raised
+        </div>
+        <div style="background: var(--navy-700); border-left: 3px solid var(--danger-500); border-radius: 8px; padding: 16px;">
+          <div style="font-size: 14px; color: var(--text); font-weight: 500; margin-bottom: 4px;">Brake coil · JSW-EOT-22</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">3 failures in 120 days · total downtime 350 min</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: var(--tracking-wide);">Est. production loss</div>
+              <div style="font-family: var(--font-mono); font-size: 20px; color: var(--gold-400); font-weight: 500;">₹4.2 L</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: var(--tracking-wide);">Investigation SLA</div>
+              <div style="font-family: var(--font-mono); font-size: 20px; color: var(--text); font-weight: 500;">48 hrs</div>
+            </div>
+          </div>
+          <hr style="margin: 14px 0; border: 0; height: 1px; background: var(--divider);">
+          <div style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono);">Timeline: 22-May → 18-Jul → 08-Sep · same component_id · monotonic mechanical wear pattern</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mk-section mk-section-alt">
+  <div class="container">
+    <div class="mk-section-head reveal">
+      <span class="eyebrow">Illustrative outcomes</span>
+      <h2>Example outcome measures to track with your fleet.</h2>
+    </div>
+    <div class="mk-stats reveal">
+      <div class="mk-stat">
+        <div class="mk-stat-value"><span data-count="43" data-suffix="%">0%</span></div>
+        <div class="mk-stat-label">Reduction in unplanned downtime</div>
+      </div>
+      <div class="mk-stat">
+        <div class="mk-stat-value"><span data-count="87" data-suffix="%">0%</span></div>
+        <div class="mk-stat-label">PM compliance across fleet</div>
+      </div>
+      <div class="mk-stat">
+        <div class="mk-stat-value"><span data-count="2.4" data-suffix="x" data-decimals="1">0.0x</span></div>
+        <div class="mk-stat-label">MTBF improvement per crane</div>
+      </div>
+      <div class="mk-stat">
+        <div class="mk-stat-value"><span data-count="14200000" data-suffix="₹">₹0</span></div>
+        <div class="mk-stat-label">Illustrative loss-avoidance example</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" id="compliance">
+  <div class="container">
+    <div class="mk-moat reveal">
+      <div class="mk-moat-inner">
+        <div>
+          <span class="chip chip-gold">The core moat</span>
+          <h3>State-jurisdiction-aware compliance, engineered into the schema.</h3>
+          <p>This is the layer a generic CMMS cannot replicate quickly — and the one worth building to full depth. Every Factories Act state inspectorate has its own quirks. Every TPI agency has its own accreditation trail. Pari treats all of it as first-class structured data — not a folder of PDFs.</p>
+        </div>
+        <div>
+          <ul>
+            <li><span class="n">1</span><div><strong>State-specific calendar.</strong><div class="text-muted" style="font-size: var(--fs-sm)">Factories Act requirements differ across state factory inspectorates. Pari knows.</div></div></li>
+            <li><span class="n">2</span><div><strong>TPI agency workflow.</strong><div class="text-muted" style="font-size: var(--fs-sm)">Scheduling, cert ingestion, renewal chains, accreditation tracking.</div></div></li>
+            <li><span class="n">3</span><div><strong>IS 3177 / IS 807 native.</strong><div class="text-muted" style="font-size: var(--fs-sm)">Duty class and design standard as structured attributes — fleet-wide queryable.</div></div></li>
+            <li><span class="n">4</span><div><strong>One-click auditor reports.</strong><div class="text-muted" style="font-size: var(--fs-sm)">Formatted for a plant safety officer to hand directly to a factory inspector.</div></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" id="pricing">
+  <div class="container">
+    <div class="mk-cta reveal">
+      <span class="eyebrow">Enterprise onboarding · guided</span>
+      <h2>Ready to see your fleet on Pari?</h2>
+      <p>A 45-minute walkthrough using your plant's own asset register. We share the reliability dashboard, statutory calendar, and a repeat-failure map for one of your critical cranes.</p>
+      <div style="display: flex; gap: var(--sp-3); justify-content: center; align-items: center; flex-wrap: wrap;">
+        <a href="contact.html" class="btn btn-primary btn-lg">Book walkthrough <i data-icon="arrow_right"></i></a>
+        <a href="app/dashboard.html" class="btn btn-outline btn-lg">Explore the demo <i data-icon="eye"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="mk-footer">
+  <div class="container">
+    <div class="mk-footer-cols">
+      <div>
+        <a href="/" class="mk-brand" aria-label="Pari Solutions home">
+          <img class="mk-brand-mark" src="assets/img/logo-mark.svg" alt="">
+          <span class="mk-brand-name">Pari<em>Solutions</em></span>
+        </a>
+        <p style="margin-top: var(--sp-4); max-width: 320px; font-size: var(--fs-sm); color: var(--text-muted);">
+          The system of record for crane reliability. Built for large industrial groups —
+          integrated steel, ports, cement, auto manufacturing, EPC.
+        </p>
+      </div>
+      <div class="mk-footer-col">
+        <h5>Platform</h5>
+        <a href="#modules">Modules</a>
+        <a href="#engine">Inspection Engine</a>
+        <a href="#compliance">Compliance</a>
+        <a href="app/dashboard.html">Live demo</a>
+      </div>
+      <div class="mk-footer-col">
+        <h5>Company</h5>
+        <a href="#platform">About</a>
+        <a href="app/customer-portal.html">Customers</a>
+        <a href="mailto:hello@parisolutions.in?subject=Careers">Careers</a>
+        <a href="mailto:hello@parisolutions.in?subject=Press">Press</a>
+      </div>
+      <div class="mk-footer-col">
+        <h5>Resources</h5>
+        <a href="README.md" download>Docs</a>
+        <a href="TESTING.md" download>Field guides</a>
+        <a href="#" @click.prevent="PARI_UI.dialog(&#x27;Security&#x27;, &#x27;&lt;p class=&quot;pari-note&quot;&gt;This build includes server sessions, role and tenant scoping, authenticator MFA and audit history. Hosting and external identity integrations require deployment configuration. See README.&lt;/p&gt;&#x27;)">Security</a>
+        <a href="#" @click.prevent="PARI_UI.dialog(&#x27;Status&#x27;, &#x27;&lt;p class=&quot;pari-note&quot;&gt;This PCLM evaluation server is available locally. No public deployment or production service status is implied.&lt;/p&gt;&#x27;)">Status</a>
+      </div>
+      <div class="mk-footer-col">
+        <h5>Contact</h5>
+        <a href="mailto:hello@parisolutions.in">hello@parisolutions.in</a>
+        <a href="mailto:hello@parisolutions.in?subject=Product%20walkthrough">+91 · Sales</a>
+        <a href="mailto:hello@parisolutions.in?subject=Support">Support</a>
+      </div>
+    </div>
+    <div class="mk-footer-bottom">
+      <span>© 2026 Pari Solutions · All rights reserved</span>
+      <span>Built for the industries that cannot afford downtime</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

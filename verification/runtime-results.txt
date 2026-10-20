@@ -1,0 +1,38 @@
+▶ Hosted PCLM full data flow
+  ✔ New hosted owner gets an empty durable workspace without demo passwords (10.614597ms)
+  ✔ Missing identity, CSRF and cross-site changes are rejected (3.842142ms)
+  ✔ Enquiry and quotation totals persist (14.873505ms)
+  ✔ Single-use, email-bound customer invitations (11.458114ms)
+  ✔ Contract activation and renewal preserve quotation linkage (20.439968ms)
+  ✔ Specification approval is locked against direct edits (8.465829ms)
+  ✔ Blocking drawing issues prevent approval (11.257303ms)
+  ✔ Supplier comparison requires an evaluated selection (8.858228ms)
+  ✔ Project and closed punch list gate handover (6.308869ms)
+  ✔ Original file upload preserves bytes and is idempotent (6.751223ms)
+  ✔ Approved commissioning creates crane, components, document and PM links (9.507103ms)
+  ✔ Independent customer accepts project handover (4.574382ms)
+  ✔ Customer request becomes an assigned technician work order (12.230314ms)
+  ✔ Technician visit, completion and customer acceptance close the request (14.641467ms)
+  ✔ Checklist measurements are evaluated server-side, including conditional items (16.501231ms)
+  ✔ Reviewed PM factors produce a traceable interval (11.533587ms)
+  ✔ Stock consumption, partial receipts and over-receipt validation (22.070608ms)
+  ✔ Repeated failures generate one flag; RCA cycle and closure guards (24.848327ms)
+  ✔ Modernization approval creates a linked upgrade project (16.689072ms)
+  ✔ Customer and technician scope blocks unrelated data and writes (20.997721ms)
+  ✔ Idempotent transactions do not double-create or duplicate audit (7.946489ms)
+  ✔ Stale and competing saves do not overwrite a newer value (15.392615ms)
+  ✔ Failed validation rolls back the complete transaction (5.224339ms)
+Verified UI action hooks: 82 across 36 pages
+  ✔ Backup restore is scoped and records the restore audit (11.616763ms)
+  ✔ Webhook configuration and outbox report real delivery state (0.866101ms)
+  ✔ Website enquiry reaches the CRM with consent validation (4.330255ms)
+  ✔ Frontend controllers initialise for every sidebar action (28.286507ms)
+✔ Hosted PCLM full data flow (337.746705ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 431.09511

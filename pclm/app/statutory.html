@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Statutory Calendar · Pari</title>
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="../assets/js/app-health.js"></script>
+<script src="../assets/js/mock-data.js"></script>
+<script src="../assets/js/server-client.js"></script>
+<script src="../assets/js/store.js"></script>
+<script defer src="../assets/js/app.js"></script>
+<script defer src="../assets/js/workflows.js"></script>
+<script defer src="../assets/js/lifecycle.js"></script>
+<script defer src="../assets/vendor/alpine-3.14.1.min.js"></script>
+<link rel="stylesheet" href="../assets/css/workflows.css">
+<link rel="stylesheet" href="../assets/css/lifecycle.css">
+<link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#0A121C">
+</head>
+<body x-data="shell" :class="collapsed ? 'app is-collapsed' : 'app'">
+
+<button class="pari-backdrop" x-show="mobileOpen" x-cloak @click="mobileOpen = false" aria-label="Close sidebar"></button>
+<aside class="sidebar" :class="{ 'is-collapsed': collapsed &amp;&amp; !mobileOpen, 'is-mobile-open': mobileOpen }">
+  <a href="../index.html" class="sidebar-brand"><img class="mark" src="../assets/img/logo-mark.svg" alt=""><span class="name sidebar-label">Pari</span></a>
+<div class="sidebar-section sidebar-label">Overview</div><nav class="sidebar-nav"><a href="dashboard.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reliability</span></a><a href="cranes.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Cranes</span></a></nav>
+<div class="sidebar-section sidebar-label">Customers & Commercial</div><nav class="sidebar-nav"><a href="customers.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Customers</span></a><a href="plants.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Plants & Sites</span></a><a href="enquiries.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Enquiries</span></a><a href="quotations.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Quotations</span></a><a href="contracts.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Contracts & Renewals</span></a></nav>
+<div class="sidebar-section sidebar-label">Engineering & Projects</div><nav class="sidebar-nav"><a href="requirements.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Requirements & Specs</span></a><a href="engineering-reviews.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Drawing & Technical Reviews</span></a><a href="vendor-comparisons.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Vendor Comparisons</span></a><a href="projects.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Projects</span></a><a href="project-tasks.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Tasks & Punch List</span></a><a href="commissioning.html" class="sidebar-link"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Commissioning & Handover</span></a></nav>
+<div class="sidebar-section sidebar-label">Operations</div><nav class="sidebar-nav"><a href="components.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Components</span></a><a href="inspections.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspections</span></a><a href="checklists.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspection Templates</span></a><a href="pm-schedule.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Preventive Maintenance</span></a><a href="pm-rules.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">PM Rules</span></a><a href="usage.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Operating Readings</span></a><a href="breakdowns.html" class="sidebar-link"><i class="icon" data-icon="breakdown"></i><span class="sidebar-label">Breakdowns</span></a><a href="repeat-failure.html" class="sidebar-link"><i class="icon" data-icon="brain"></i><span class="sidebar-label">Repeat-Failure</span></a></nav>
+<div class="sidebar-section sidebar-label">Service & Supply</div><nav class="sidebar-nav"><a href="service-requests.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Service Requests</span></a><a href="work-orders.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Work Orders</span></a><a href="visits.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Technician Visits</span></a><a href="spares.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Critical Spares</span></a><a href="procurement.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Purchase Requests</span></a><a href="partners.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Suppliers & Partners</span></a></nav>
+<div class="sidebar-section sidebar-label">Lifecycle & Governance</div><nav class="sidebar-nav"><a href="modernizations.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Modernization</span></a><a href="documents.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Documents & Certs</span></a><a href="statutory.html" class="sidebar-link is-active"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Statutory Calendar</span></a><a href="approvals.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Approvals</span></a><a href="reports.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reports</span></a></nav>
+<div class="sidebar-section sidebar-label">Admin</div><nav class="sidebar-nav"><a href="notifications.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Notifications</span></a><a href="users.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Users & Roles</span></a><a href="customer-portal.html" class="sidebar-link"><i class="icon" data-icon="eye"></i><span class="sidebar-label">Customer Portal</span></a></nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user"><div class="avatar">RM</div><div class="who sidebar-label"><span class="name">Ravi Mehta</span><span class="role">Reliability Manager</span></div></div>
+  </div>
+</aside>
+
+<main class="app-main">
+  <div class="topbar">
+    <button class="collapse-btn" @click="toggleCollapse()"><i data-icon="menu"></i></button>
+    <div class="breadcrumbs"><span>Jamshedpur Steel Works</span><span class="sep">/</span><span class="current">Statutory Calendar</span></div>
+    <div class="topbar-search"><i data-icon="search"></i><input class="input" type="search" placeholder="Search…"><span class="kbd">⌘ K</span></div>
+    <div class="plant-switcher"><div class="plant-icon"><i data-icon="layers"></i></div><div><div class="plant-name">Jamshedpur SW</div><div class="plant-role">42 cranes · JH</div></div><i data-icon="chevron_down" style="color: var(--text-dim); width: 14px; height: 14px;"></i></div>
+    <button class="topbar-icon"><i data-icon="bell"></i><span class="dot"></span></button>
+    <button class="topbar-icon"><i data-icon="brain"></i></button>
+  </div>
+
+  <div class="content" x-data="statutoryCalendar">
+    <div class="page-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom: var(--sp-2);">Module 08 · Statutory &amp; Compliance</div>
+        <h1 class="page-title">Statutory Calendar</h1>
+        <p class="page-lede">Track site requirements, TPI assignments, renewal dates and original evidence. Export the recorded compliance history for review.</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary btn-sm" @click="PARI_UI.agencyCreate()"><i data-icon="filter"></i> Add TPI agency</button>
+        <button class="btn btn-primary btn-sm" @click="PARI_UI.auditor(filtered)"><i data-icon="download"></i> One-click auditor report</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid reveal" style="grid-template-columns: repeat(4, 1fr); margin-bottom: var(--sp-6);">
+      <div class="kpi"><div class="kpi-label">Overdue</div><div class="kpi-value" style="color: var(--danger-400);" x-text="items.filter(i => i.status === 'overdue').length"></div><div class="kpi-delta down">▲ Legal risk</div></div>
+      <div class="kpi"><div class="kpi-label">Due in 30 days</div><div class="kpi-value" style="color: var(--warn-400);" x-text="items.filter(i => i.status === 'due').length"></div><div class="kpi-delta down">Action needed</div></div>
+      <div class="kpi"><div class="kpi-label">Upcoming (90d)</div><div class="kpi-value" x-text="items.filter(i => i.status === 'upcoming').length"></div><div class="kpi-delta up">Planned</div></div>
+      <div class="kpi"><div class="kpi-label">Audit-ready</div><div class="kpi-value" style="color: var(--ok-400);"><span x-text="readiness"></span><span class="unit">%</span></div><div class="kpi-delta up">All docs indexed</div></div>
+    </div>
+
+    <div class="filter-bar reveal">
+      <select class="select" x-model="jurisdiction">
+        <option value="all">All jurisdictions</option>
+        <option value="JH">Jharkhand · Factories Inspectorate</option>
+        <option value="MH">Maharashtra</option>
+        <option value="AP">Andhra Pradesh</option><option value="KA">Karnataka</option><option value="TN">Tamil Nadu</option><option value="GJ">Gujarat</option><option value="OD">Odisha</option><option value="UP">Uttar Pradesh</option>
+      </select>
+      <select class="select" x-model="regulation">
+        <option value="all">All regulations</option>
+        <option>Factories Act §29</option>
+        <option>IS 3177</option>
+        <option>IS 807</option>
+        <option>Insurance</option>
+      </select>
+      <select class="select" x-model="tpi">
+        <option value="all">All TPI</option>
+        <template x-for="agency in agencies" :key="agency.id"><option :value="agency.name" x-text="agency.name"></option></template>
+      </select>
+      <select class="select" x-model="status">
+        <option value="all">All statuses</option>
+        <option value="overdue">Overdue</option>
+        <option value="due">Due</option>
+        <option value="upcoming">Upcoming</option>
+        <option value="valid">Valid</option>
+      </select>
+      <span style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-dim); letter-spacing: var(--tracking-wide);"><span x-text="filtered.length"></span> of <span x-text="items.length"></span></span>
+    </div>
+
+    <div class="card reveal" style="padding: var(--sp-5); margin-bottom: var(--sp-6);">
+      <div class="row-b" style="margin-bottom: var(--sp-3);">
+        <div class="card-title">Rolling 6-month view</div>
+        <span class="chip chip-gold"><span x-text="'Jurisdiction · ' + (jurisdiction === 'all' ? 'All' : jurisdiction)"></span></span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--sp-2);">
+        <template x-for="m in months" :key="m">
+          <div style="padding: var(--sp-4); background: var(--navy-700); border-radius: var(--r-md); border: 1px solid var(--border);">
+            <div class="field-label" x-text="new Date(m + '-01').toLocaleString('en', { month: 'long' }).toUpperCase()"></div>
+            <div style="font-family: var(--font-sans); font-size: var(--fs-2xl); font-weight: 300; color: var(--text); margin-top: 4px;" x-text="monthly[m] || 0"></div>
+            <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: var(--tracking-wide); text-transform: uppercase; margin-top: 4px;">Inspections</div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <div class="table-wrap reveal">
+      <table class="table">
+        <thead>
+          <tr><th>Asset</th><th>Regulation</th><th>Reference</th><th>TPI agency</th><th>Scheduled</th><th class="num">Days</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <template x-for="i in filtered" :key="i.id">
+            <tr class="pari-clickable" role="button" tabindex="0" @click="PARI_UI.statutoryEdit(i)" @keydown.enter="PARI_UI.statutoryEdit(i)">
+              <td><span class="mono" style="color: var(--accent); font-size: var(--fs-xs); letter-spacing: var(--tracking-wide);" x-text="i.asset"></span></td>
+              <td><div style="font-weight: 500; color: var(--text);" x-text="i.regulation"></div><div style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); margin-top: 2px;" x-text="'State: ' + i.jurisdiction_state"></div></td>
+              <td class="mono" x-text="i.reference"></td>
+              <td x-text="i.tpi_agency"></td>
+              <td class="mono" x-text="i.scheduled_date"></td>
+              <td class="num" :style="`color: ${i.days_left < 0 ? 'var(--danger-400)' : i.days_left < 30 ? 'var(--warn-400)' : 'var(--text)'}; font-weight: 600;`" x-text="i.days_left + ' d'"></td>
+              <td>
+                <span class="chip" :class="i.status === 'overdue' ? 'chip-danger' : i.status === 'due' ? 'chip-warn' : i.status === 'upcoming' ? 'chip-info' : 'chip-ok'" x-text="i.status.toUpperCase()"></span>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+      <div x-show="filtered.length === 0" x-cloak class="empty">
+        <h5 style="color: var(--text); font-weight: 500; margin-bottom: 4px;">No statutory items match</h5>
+        <p style="font-size: var(--fs-sm);">Try changing the jurisdiction or clearing filters.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+document.addEventListener('alpine:initialized', () => {
+  const paint = () => document.querySelectorAll('[data-icon]').forEach(el => { const n = el.dataset.icon; if (window.PARI_ICONS && window.PARI_ICONS[n] && !el.innerHTML) el.innerHTML = window.PARI_ICONS[n]; });
+  setTimeout(paint, 60);
+  document.addEventListener('input', () => setTimeout(paint, 40));
+  document.addEventListener('click', () => setTimeout(paint, 40));
+});
+</script>
+</body>
+</html>

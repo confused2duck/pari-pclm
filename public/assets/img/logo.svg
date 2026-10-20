@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" fill="none">
+  <g font-family="IBM Plex Sans, sans-serif" fill="#F5F6F7">
+    <text x="180" y="52" text-anchor="middle" font-size="46" font-weight="300" letter-spacing="6">PARI</text>
+  </g>
+  <line x1="40" y1="72" x2="320" y2="72" stroke="#CFAE71" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="180" y1="72" x2="180" y2="96" stroke="#CFAE71" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="180" cy="72" r="4.4" fill="#E4C372"/>
+  <path d="M175 96 A5 6 0 0 0 185 96" stroke="#CFAE71" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <g font-family="IBM Plex Mono, monospace" fill="#F5F6F7">
+    <text x="180" y="112" text-anchor="middle" font-size="10" letter-spacing="6">SOLUTIONS</text>
+  </g>
+</svg>

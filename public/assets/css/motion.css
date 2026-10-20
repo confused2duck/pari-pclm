@@ -1,0 +1,152 @@
+/* =============================================================
+   PARI SOLUTIONS · Motion — keyframes, reveal, parallax primitives
+   ============================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-5) var(--ease-out),
+    transform var(--dur-5) var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.is-in { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 80ms; }
+.reveal-delay-2 { transition-delay: 160ms; }
+.reveal-delay-3 { transition-delay: 240ms; }
+.reveal-delay-4 { transition-delay: 320ms; }
+.reveal-delay-5 { transition-delay: 400ms; }
+
+.reveal-left  { transform: translateX(-32px); }
+.reveal-left.is-in  { transform: translateX(0); }
+.reveal-right { transform: translateX(32px); }
+.reveal-right.is-in { transform: translateX(0); }
+.reveal-scale { transform: scale(0.96); }
+.reveal-scale.is-in { transform: scale(1); }
+
+@keyframes blueprint-drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-48px, -48px); }
+}
+.blueprint-grid {
+  position: absolute;
+  inset: -48px;
+  background-image:
+    linear-gradient(to right, rgba(59, 88, 117, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 88, 117, 0.14) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: blueprint-drift 40s var(--ease-linear) infinite;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+}
+
+@keyframes hook-swing {
+  0%   { transform: rotate(-2.5deg); }
+  50%  { transform: rotate(2.5deg); }
+  100% { transform: rotate(-2.5deg); }
+}
+.hook-swing {
+  transform-origin: 50% 0%;
+  animation: hook-swing 6s var(--ease-in-out) infinite;
+}
+
+@keyframes trace-draw {
+  from { stroke-dashoffset: var(--trace-len, 800); }
+  to   { stroke-dashoffset: 0; }
+}
+.trace {
+  stroke-dasharray: var(--trace-len, 800);
+  stroke-dashoffset: var(--trace-len, 800);
+  animation: trace-draw 2.2s var(--ease-out) 200ms forwards;
+}
+
+@keyframes pulse-dot {
+  0%   { box-shadow: 0 0 0 0 currentColor; opacity: 1; }
+  70%  { box-shadow: 0 0 0 10px transparent; opacity: 0; }
+  100% { box-shadow: 0 0 0 0 transparent; opacity: 0; }
+}
+.pulse-dot {
+  position: relative;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.pulse-dot::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse-dot 2s var(--ease-out) infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+.marquee-track {
+  display: inline-flex;
+  gap: var(--sp-12);
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.fade-in  { animation: fade-in var(--dur-3) var(--ease-out); }
+.scale-in { animation: scale-in var(--dur-3) var(--ease-out); }
+
+.count-up { font-variant-numeric: tabular-nums; transition: color var(--dur-3) var(--ease-out); }
+
+@keyframes gold-sweep {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.gold-sweep {
+  background: linear-gradient(90deg,
+    var(--text) 0%, var(--text) 40%,
+    var(--accent-hi) 50%,
+    var(--text) 60%, var(--text) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gold-sweep 6s var(--ease-in-out) infinite;
+}
+
+.sidebar-label {
+  transition: opacity var(--dur-3) var(--ease-out), max-width var(--dur-3) var(--ease-out);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.sidebar.is-collapsed .sidebar-label { opacity: 0; max-width: 0; }
+
+.chart-line {
+  stroke-dasharray: var(--chart-len, 1200);
+  stroke-dashoffset: var(--chart-len, 1200);
+  transition: stroke-dashoffset 1.4s var(--ease-out);
+}
+.chart-line.is-in { stroke-dashoffset: 0; }
+
+.chart-area {
+  opacity: 0;
+  transition: opacity var(--dur-6) var(--ease-out) 400ms;
+}
+.chart-area.is-in { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.is-in { opacity: 1; transform: none; transition: none; }
+  .blueprint-grid, .hook-swing, .marquee-track, .pulse-dot::after, .gold-sweep {
+    animation: none !important;
+  }
+  .trace { stroke-dashoffset: 0; animation: none; }
+  .chart-line { stroke-dashoffset: 0; }
+  .chart-area { opacity: 1; }
+}

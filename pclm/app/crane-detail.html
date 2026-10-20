@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JSW-EOT-22 · Coil Transport Crane #22 · Pari</title>
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="../assets/js/app-health.js"></script>
+<script src="../assets/js/mock-data.js"></script>
+<script src="../assets/js/server-client.js"></script>
+<script src="../assets/js/store.js"></script>
+<script defer src="../assets/js/app.js"></script>
+<script defer src="../assets/js/workflows.js"></script>
+<script defer src="../assets/js/lifecycle.js"></script>
+<script defer src="../assets/vendor/alpine-3.14.1.min.js"></script>
+<link rel="stylesheet" href="../assets/css/workflows.css">
+<link rel="stylesheet" href="../assets/css/lifecycle.css">
+<link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#0A121C">
+</head>
+<body x-data="shell" :class="collapsed ? 'app is-collapsed' : 'app'">
+
+<button class="pari-backdrop" x-show="mobileOpen" x-cloak @click="mobileOpen = false" aria-label="Close sidebar"></button>
+<aside class="sidebar" :class="{ 'is-collapsed': collapsed &amp;&amp; !mobileOpen, 'is-mobile-open': mobileOpen }">
+  <a href="../index.html" class="sidebar-brand">
+    <img class="mark" src="../assets/img/logo-mark.svg" alt="">
+    <span class="name sidebar-label">Pari</span>
+  </a>
+<div class="sidebar-section sidebar-label">Overview</div><nav class="sidebar-nav"><a href="dashboard.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reliability</span></a><a href="cranes.html" class="sidebar-link is-active"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Cranes</span></a></nav>
+<div class="sidebar-section sidebar-label">Customers & Commercial</div><nav class="sidebar-nav"><a href="customers.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Customers</span></a><a href="plants.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Plants & Sites</span></a><a href="enquiries.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Enquiries</span></a><a href="quotations.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Quotations</span></a><a href="contracts.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Contracts & Renewals</span></a></nav>
+<div class="sidebar-section sidebar-label">Engineering & Projects</div><nav class="sidebar-nav"><a href="requirements.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Requirements & Specs</span></a><a href="engineering-reviews.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Drawing & Technical Reviews</span></a><a href="vendor-comparisons.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Vendor Comparisons</span></a><a href="projects.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Projects</span></a><a href="project-tasks.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Tasks & Punch List</span></a><a href="commissioning.html" class="sidebar-link"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Commissioning & Handover</span></a></nav>
+<div class="sidebar-section sidebar-label">Operations</div><nav class="sidebar-nav"><a href="components.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Components</span></a><a href="inspections.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspections</span></a><a href="checklists.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspection Templates</span></a><a href="pm-schedule.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Preventive Maintenance</span></a><a href="pm-rules.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">PM Rules</span></a><a href="usage.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Operating Readings</span></a><a href="breakdowns.html" class="sidebar-link"><i class="icon" data-icon="breakdown"></i><span class="sidebar-label">Breakdowns</span></a><a href="repeat-failure.html" class="sidebar-link"><i class="icon" data-icon="brain"></i><span class="sidebar-label">Repeat-Failure</span></a></nav>
+<div class="sidebar-section sidebar-label">Service & Supply</div><nav class="sidebar-nav"><a href="service-requests.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Service Requests</span></a><a href="work-orders.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Work Orders</span></a><a href="visits.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Technician Visits</span></a><a href="spares.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Critical Spares</span></a><a href="procurement.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Purchase Requests</span></a><a href="partners.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Suppliers & Partners</span></a></nav>
+<div class="sidebar-section sidebar-label">Lifecycle & Governance</div><nav class="sidebar-nav"><a href="modernizations.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Modernization</span></a><a href="documents.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Documents & Certs</span></a><a href="statutory.html" class="sidebar-link"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Statutory Calendar</span></a><a href="approvals.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Approvals</span></a><a href="reports.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reports</span></a></nav>
+<div class="sidebar-section sidebar-label">Admin</div><nav class="sidebar-nav"><a href="notifications.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Notifications</span></a><a href="users.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Users & Roles</span></a><a href="customer-portal.html" class="sidebar-link"><i class="icon" data-icon="eye"></i><span class="sidebar-label">Customer Portal</span></a></nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="avatar">RM</div>
+      <div class="who sidebar-label">
+        <span class="name">Ravi Mehta</span>
+        <span class="role">Reliability Manager</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="app-main">
+  <div class="topbar">
+    <button class="collapse-btn" @click="toggleCollapse()"><i data-icon="menu"></i></button>
+    <div class="breadcrumbs">
+      <a href="cranes.html" style="color: var(--text-muted);">Cranes</a>
+      <span class="sep">/</span>
+      <span class="current" x-data x-text="PARI.cranes.find(c => c.id === (new URLSearchParams(location.search).get('id') || PARI_STORE.cranes()[0]?.id))?.asset_number || 'Crane'"></span>
+    </div>
+    <div class="topbar-search">
+      <i data-icon="search"></i>
+      <input class="input" type="search" placeholder="Search…">
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="plant-switcher">
+      <div class="plant-icon"><i data-icon="layers"></i></div>
+      <div>
+        <div class="plant-name">Jamshedpur SW</div>
+        <div class="plant-role">42 cranes · JH</div>
+      </div>
+      <i data-icon="chevron_down" style="color: var(--text-dim); width: 14px; height: 14px;"></i>
+    </div>
+    <button class="topbar-icon"><i data-icon="bell"></i><span class="dot"></span></button>
+    <button class="topbar-icon"><i data-icon="brain"></i></button>
+  </div>
+
+  <div class="content" x-data="craneDetail">
+
+    <div class="reveal" x-show="flag" x-cloak style="background: linear-gradient(90deg, rgba(226,112,112,0.14), rgba(226,112,112,0.02));
+                border: 1px solid rgba(226,112,112,0.35);
+                border-left: 3px solid var(--danger-500);
+                border-radius: var(--r-md);
+                padding: var(--sp-4) var(--sp-5);
+                margin-bottom: var(--sp-6);
+                display: flex; gap: var(--sp-4); align-items: center;">
+      <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(226,112,112,0.18); color: var(--danger-400); display: flex; align-items: center; justify-content: center;">
+        <i data-icon="flag"></i>
+      </div>
+      <div style="flex: 1;">
+        <div style="font-size: var(--fs-sm); color: var(--text); font-weight: 500;" x-text="'Repeat-failure flag: ' + (flag?.component || '') + ' · ' + (flag?.failures_120d || 0) + ' failures'"></div>
+        <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 2px;" x-text="'Downtime ' + (flag?.total_downtime_min || 0) + ' min · Investigation assigned to ' + (flag?.assigned_to || '') + ' · SLA ' + (flag?.sla_hrs || 0) + ' hrs'"></div>
+      </div>
+      <button class="btn btn-outline btn-sm" @click="PARI_UI.flagEdit(flag)">Open investigation <i data-icon="arrow_right" style="width:14px; height:14px;"></i></button>
+    </div>
+
+    <div class="crane-header reveal">
+      <div class="id-block">
+        <div class="id-num" x-text="crane.asset_number + ' · ' + crane.id"></div>
+        <div class="title" x-text="crane.name"></div>
+        <div class="spec-strip">
+          <div class="spec"><div class="label">Type</div><div class="val" x-text="crane.crane_type"></div></div>
+          <div class="spec"><div class="label">Duty class</div><div class="val" x-text="crane.duty_class"></div></div>
+          <div class="spec"><div class="label">Capacity</div><div class="val" x-text="crane.capacity_t + ' t'"></div></div>
+          <div class="spec"><div class="label">Span</div><div class="val" x-text="crane.span_m + ' m'"></div></div>
+          <div class="spec"><div class="label">Lift</div><div class="val" x-text="crane.lift_m + ' m'"></div></div>
+          <div class="spec"><div class="label">Manufacturer</div><div class="val" x-text="crane.manufacturer + ' · ' + crane.model"></div></div>
+        </div>
+      </div>
+      <div class="actions" style="display: flex; align-items: center; gap: var(--sp-4); flex-direction: column;">
+        <div class="ring" :data-ring="crane.score" style="width: 92px; height: 92px;">
+          <svg viewBox="0 0 100 100">
+            <circle class="ring-bg" cx="50" cy="50" r="40"></circle>
+            <circle class="ring-fg" cx="50" cy="50" r="40" style="stroke: var(--warn-500);"></circle>
+          </svg>
+          <div class="ring-label">
+            <span class="ring-value" x-text="crane.score"></span>
+            <span class="ring-unit">SCORE</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: var(--sp-2);">
+          <button class="btn btn-secondary btn-sm" @click="PARI_UI.craneReport(crane)"><i data-icon="download"></i> Report</button>
+          <button class="btn btn-primary btn-sm" @click="PARI_UI.inspectionCreate(crane.id)"><i data-icon="plus"></i> New inspection</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="three-col reveal" style="margin-bottom: var(--sp-6);">
+      <div class="kpi">
+        <div class="kpi-label">PM Compliance</div>
+        <div class="kpi-value" style="color: var(--warn-400);"><span x-text="crane.pm_compliance"></span><span class="unit">%</span></div>
+        <div class="kpi-delta down">▲ +2 pts this month</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">MTBF</div>
+        <div class="kpi-value"><span x-text="crane.mtbf_h"></span><span class="unit">h</span></div>
+        <div class="kpi-delta down">▼ Well below fleet avg 620 h</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Open corrective actions</div>
+        <div class="kpi-value" x-text="crane.open_actions"></div>
+        <div class="kpi-delta down">▲ +3 this week · 2 overdue</div>
+      </div>
+    </div>
+
+    <div class="tabs"><button class="tab" :class="{ 'is-active': tab === 'lifecycle' }" @click="tab = 'lifecycle'">Lifecycle history</button>
+      <button class="tab" :class="{ 'is-active': tab === 'overview' }"    @click="tab = 'overview'">Overview</button>
+      <button class="tab" :class="{ 'is-active': tab === 'components' }"  @click="tab = 'components'">Components</button>
+      <button class="tab" :class="{ 'is-active': tab === 'inspections' }" @click="tab = 'inspections'">Inspections <span class="count" x-text="inspections.length"></span></button>
+      <button class="tab" :class="{ 'is-active': tab === 'pm' }"          @click="tab = 'pm'">PM Schedule <span class="count" x-text="pmTasks.length"></span></button>
+      <button class="tab" :class="{ 'is-active': tab === 'breakdowns' }"  @click="tab = 'breakdowns'">Breakdowns <span class="count" x-text="breakdowns.length"></span></button>
+      <button class="tab" :class="{ 'is-active': tab === 'documents' }"   @click="tab = 'documents'">Documents</button>
+      <button class="tab" :class="{ 'is-active': tab === 'statutory' }"   @click="tab = 'statutory'">Statutory</button>
+    </div>
+
+    <section x-show="tab === 'overview'" x-cloak x-transition.opacity style="margin-top: var(--sp-6);" class="two-col">
+      <div class="card-elevated">
+        <div class="card-header" style="padding: var(--sp-5) var(--sp-6) 0;">
+          <div>
+            <div class="card-title">Breakdown history · this crane</div>
+            <div class="card-subtitle"><span x-text="breakdowns.length + ' recorded events for this crane'"></span></div>
+          </div>
+        </div>
+        <div style="padding: var(--sp-4) var(--sp-6);">
+          <div style="display: flex; gap: var(--sp-4); flex-direction: column;">
+            <template x-for="b in breakdowns" :key="b.id">
+              <div style="display: grid; grid-template-columns: 100px 1fr auto; gap: var(--sp-4); align-items: center; padding: var(--sp-3); background: var(--navy-700); border-radius: var(--r-md); border-left: 3px solid var(--danger-500);">
+                <div class="mono" style="font-size: var(--fs-xs); color: var(--text-muted); letter-spacing: var(--tracking-wide);" x-text="b.datetime_reported.split('T')[0]"></div>
+                <div>
+                  <div style="font-size: var(--fs-sm); color: var(--text); font-weight: 500;" x-text="b.symptom"></div>
+                  <div style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); margin-top: 2px;">
+                    Root cause: <span x-text="b.root_cause"></span> · <span x-text="b.root_cause_method"></span>
+                  </div>
+                </div>
+                <div style="text-align: right;">
+                  <div class="mono" style="color: var(--warn-400); font-weight: 600;" x-text="b.downtime_min + ' min'"></div>
+                  <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono); letter-spacing: var(--tracking-wide);">Downtime</div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+      <div class="card-elevated">
+        <div class="card-header" style="padding: var(--sp-5) var(--sp-6) 0;">
+          <div>
+            <div class="card-title">Quick facts</div>
+            <div class="card-subtitle">Configuration &amp; installation</div>
+          </div>
+        </div>
+        <div style="padding: var(--sp-4) var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-4);">
+          <div class="row-b" style="padding: 10px 0; border-bottom: 1px solid var(--divider);">
+            <span style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-dim); letter-spacing: var(--tracking-wide); text-transform: uppercase;">Installed</span>
+            <span style="font-size: var(--fs-sm); color: var(--text);" x-text="crane.id === 'crn_103' ? '15 Mar 2018' : 'Not recorded'"></span>
+          </div>
+          <div class="row-b" style="padding: 10px 0; border-bottom: 1px solid var(--divider);">
+            <span style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-dim); letter-spacing: var(--tracking-wide); text-transform: uppercase;">Commissioned</span>
+            <span style="font-size: var(--fs-sm); color: var(--text);" x-text="crane.id === 'crn_103' ? '28 Mar 2018' : 'Not recorded'"></span>
+          </div>
+          <div class="row-b" style="padding: 10px 0; border-bottom: 1px solid var(--divider);">
+            <span style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-dim); letter-spacing: var(--tracking-wide); text-transform: uppercase;">Design standard</span>
+            <span style="font-size: var(--fs-sm); color: var(--text);" x-text="crane.id === 'crn_103' ? 'IS 3177 · IS 807' : 'Not recorded'"></span>
+          </div>
+          <div class="row-b" style="padding: 10px 0; border-bottom: 1px solid var(--divider);">
+            <span style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-dim); letter-spacing: var(--tracking-wide); text-transform: uppercase;">Utilization class</span>
+            <span style="font-size: var(--fs-sm); color: var(--text);" x-text="crane.id === 'crn_103' ? 'Heavy · U6' : 'Not recorded'"></span>
+          </div>
+          <div class="row-b" style="padding: 10px 0;">
+            <span style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-dim); letter-spacing: var(--tracking-wide); text-transform: uppercase;">Load spectrum</span>
+            <span style="font-size: var(--fs-sm); color: var(--text);" x-text="crane.id === 'crn_103' ? 'Q3' : 'Not recorded'"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section x-show="tab === 'components'" x-cloak style="margin-top:24px"><div class="row-b" style="margin-bottom:16px"><div class="card-title">Component register</div><button class="btn btn-primary btn-sm" @click="PARI_LIFECYCLE.edit('components',null,{crane_id:crane.id})">Add component</button></div><div class="pari-list"><template x-for="component in PARI.components.filter(c => c.crane_id === crane.id)" :key="component.id"><button class="pari-list-item" style="text-align:left" @click="PARI_LIFECYCLE.detail('components',component.id)"><strong x-text="component.name"></strong><p x-text="component.component_type + ' · Serial: ' + (component.serial_number || 'Not recorded') + ' · ' + component.status"></p><p x-text="component.condition"></p></button></template></div></section>
+    <section x-show="tab === 'inspections'" x-cloak x-transition.opacity style="margin-top: var(--sp-6);">
+      <div class="row-b" style="margin-bottom: var(--sp-4);">
+        <div style="display: flex; gap: var(--sp-2);">
+          <span class="chip chip-outline">All types</span>
+          <span class="chip chip-outline">Last 90 days</span>
+        </div>
+        <button class="btn btn-primary btn-sm" @click="PARI_UI.inspectionCreate(crane.id)"><i data-icon="plus"></i> Start inspection</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 32px;"></th>
+              <th>Checklist</th>
+              <th>Technician</th>
+              <th>Scheduled</th>
+              <th>Completed</th>
+              <th>Result</th>
+              <th>Findings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="i in inspections" :key="i.id">
+              <tr class="insp-row" :class="{ 'is-open': openInsp === i.id }" @click="toggleInsp(i.id)">
+                <td><i data-icon="chevron" class="arrow" style="width: 14px; height: 14px;"></i></td>
+                <td>
+                  <div style="color: var(--text); font-weight: 500;" x-text="i.checklist"></div>
+                  <div style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); margin-top: 2px;" x-text="i.id"></div>
+                </td>
+                <td x-text="i.technician"></td>
+                <td class="mono" x-text="i.scheduled_date"></td>
+                <td class="mono" x-text="i.completed_date || '—'"></td>
+                <td>
+                  <span class="chip"
+                        :class="i.result === 'pass' ? 'chip-ok' :
+                                i.result === 'pass_with_findings' ? 'chip-warn' :
+                                i.status === 'pending' ? 'chip-info' :
+                                i.status === 'scheduled' ? 'chip-outline' : 'chip-danger'"
+                        x-text="i.result === 'pass' ? 'PASS' :
+                                i.result === 'pass_with_findings' ? 'Findings' :
+                                i.status === 'pending' ? 'Pending' :
+                                i.status === 'scheduled' ? 'Scheduled' : 'FAIL'"></span>
+                </td>
+                <td class="mono" x-text="i.findings.length || '—'"></td>
+              </tr>
+            </template>
+            <template x-for="i in inspections" :key="'d_' + i.id">
+              <tr x-show="openInsp === i.id" x-cloak x-transition.opacity>
+                <td colspan="7" style="padding: 0;">
+                  <div class="insp-details">
+                    <h5>Findings</h5>
+                    <div style="display: flex; flex-direction: column; gap: var(--sp-2); margin-bottom: var(--sp-4);">
+                      <template x-for="f in i.findings" :key="f.item">
+                        <div style="display: grid; grid-template-columns: 20px 1fr auto; gap: var(--sp-3); padding: var(--sp-3); background: var(--navy-800); border-radius: var(--r-sm); align-items: center;">
+                          <span class="sev-dot"
+                                :class="f.severity === 'major' ? 'sev-major' :
+                                        f.severity === 'critical' ? 'sev-critical' :
+                                        f.severity === 'minor' ? 'sev-minor' : 'sev-ok'"></span>
+                          <div>
+                            <div style="color: var(--text); font-weight: 500;" x-text="f.item"></div>
+                            <div style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); margin-top: 2px;">
+                              <span x-text="f.response.toUpperCase()"></span>
+                              <span x-show="f.value" x-cloak> · </span><span x-show="f.value" x-cloak x-text="f.value"></span>
+                              <span x-show="f.comment" x-cloak> · </span><span x-show="f.comment" x-cloak x-text="f.comment"></span>
+                            </div>
+                          </div>
+                          <span x-show="f.response === 'fail' || (f.severity && f.severity !== 'ok')" x-cloak class="chip"
+                                :class="f.severity === 'major' || f.severity === 'critical' ? 'chip-warn' : 'chip-info'">
+                            Action opened
+                          </span>
+                        </div>
+                      </template>
+                      <div x-show="i.findings.length === 0" x-cloak style="padding: var(--sp-4); color: var(--text-dim); font-size: var(--fs-sm); text-align: center;">
+                        No findings — inspection not yet started
+                      </div>
+                    </div>
+                    <div style="display: flex; gap: var(--sp-3);">
+                      <button class="btn btn-outline btn-sm" @click="PARI_UI.inspectionEdit(i)">View full report <i data-icon="arrow_right" style="width:14px; height: 14px;"></i></button>
+                      <button class="btn btn-ghost btn-sm" @click="PARI_UI.inspectionPdf(i)">Download PDF</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section x-show="tab === 'pm'" x-cloak x-transition.opacity style="margin-top: var(--sp-6);">
+      <div class="row-b" style="margin-bottom: var(--sp-4);">
+        <div style="display: flex; gap: var(--sp-2); flex-wrap: wrap;">
+          <span class="chip chip-danger"><span class="chip-dot"></span> Overdue · <span x-text="PARI.fleetPmTasks.filter(t => t.crane_id === crane.id &amp;&amp; t.status === 'overdue').length"></span></span>
+          <span class="chip chip-warn"><span class="chip-dot"></span> Due · <span x-text="PARI.fleetPmTasks.filter(t => t.crane_id === crane.id &amp;&amp; t.status === 'due').length"></span></span>
+          <span class="chip chip-info"><span class="chip-dot"></span> Upcoming · <span x-text="PARI.fleetPmTasks.filter(t => t.crane_id === crane.id &amp;&amp; t.status === 'upcoming').length"></span></span>
+          <span class="chip chip-ok"><span class="chip-dot"></span> Completed · <span x-text="PARI.fleetPmTasks.filter(t => t.crane_id === crane.id &amp;&amp; t.status === 'done').length"></span></span>
+        </div>
+        <div style="display: flex; gap: var(--sp-2);">
+          <button class="btn btn-ghost btn-sm" @click="PARI_UI.pmFilter()"><i data-icon="filter"></i> Filter</button>
+          <button class="btn btn-primary btn-sm" @click="PARI_UI.pmCreate(crane.id)"><i data-icon="plus"></i> Schedule PM</button>
+        </div>
+      </div>
+
+      <div class="pm-list">
+        <template x-for="t in pmTasks" :key="t.id">
+          <div class="pm-item" :class="t.status">
+            <div class="pm-date">
+              <span class="day" x-text="t.due_date.slice(-2)"></span>
+              <span x-text="new Date(t.due_date).toLocaleString('en', { month: 'short' }).toUpperCase()"></span>
+            </div>
+            <div class="pm-body">
+              <div class="title" x-text="t.title"></div>
+              <div class="meta">
+                <span x-text="t.component"></span> · <span x-text="t.frequency"></span>
+                <span x-show="t.status === 'overdue'" x-cloak style="color: var(--danger-400);"> · OVERDUE</span>
+                <span x-show="t.status === 'due'" x-cloak style="color: var(--warn-400);"> · DUE THIS WEEK</span>
+              </div>
+            </div>
+            <div class="pm-tech">
+              <div class="avatar" x-text="t.tech.split(' ').map(w => w[0]).join('').slice(0,2)"></div>
+              <span x-text="t.tech"></span>
+            </div>
+            <div>
+              <button class="btn btn-secondary btn-sm" x-show="t.status !== 'done'" x-cloak @click="PARI_UI.pmStart(t)" x-text="t.started_at ? 'Continue' : 'Start'">Start</button>
+              <span class="chip chip-ok" x-show="t.status === 'done'" x-cloak>Done</span>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <section x-show="tab === 'breakdowns'" x-cloak x-transition.opacity style="margin-top: var(--sp-6);">
+      <div class="card-elevated" style="padding: var(--sp-6);">
+        <div class="card-title" style="margin-bottom: var(--sp-4);">Structured root-cause capture · every event</div>
+        <div style="display: flex; gap: var(--sp-4); flex-direction: column;">
+          <template x-for="b in breakdowns" :key="b.id">
+            <div style="padding: var(--sp-4) var(--sp-5); background: var(--navy-700); border-radius: var(--r-md); border-left: 3px solid var(--danger-500);">
+              <div class="row-b" style="margin-bottom: var(--sp-3);">
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--accent); letter-spacing: var(--tracking-wide);" x-text="b.id"></div>
+                  <div style="font-size: var(--fs-md); color: var(--text); font-weight: 500; margin-top: 2px;" x-text="b.symptom"></div>
+                </div>
+                <span class="chip chip-outline" x-text="b.status.toUpperCase()"></span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); padding-top: var(--sp-3); border-top: 1px solid var(--divider);">
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: var(--tracking-wide);">Reported</div>
+                  <div style="font-size: var(--fs-sm); color: var(--text); margin-top: 2px;" x-text="b.datetime_reported.replace('T', ' · ')"></div>
+                </div>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: var(--tracking-wide);">Component</div>
+                  <div style="font-size: var(--fs-sm); color: var(--text); margin-top: 2px;" x-text="b.component"></div>
+                </div>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: var(--tracking-wide);">Downtime</div>
+                  <div style="font-size: var(--fs-sm); color: var(--warn-400); font-weight: 600; margin-top: 2px;" x-text="b.downtime_min + ' min'"></div>
+                </div>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: var(--tracking-wide);">Method</div>
+                  <div style="font-size: var(--fs-sm); color: var(--text); margin-top: 2px;" x-text="b.root_cause_method"></div>
+                </div>
+              </div>
+              <div style="margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--divider);">
+                <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: var(--tracking-wide);">Root cause</div>
+                <div style="font-size: var(--fs-sm); color: var(--text); margin-top: 2px;" x-text="b.root_cause"></div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <section x-show="tab === 'documents'" x-cloak x-transition.opacity style="margin-top: var(--sp-6);">
+      <div class="card-elevated" style="padding: var(--sp-6);">
+        <div class="card-title" style="margin-bottom: var(--sp-4);">Certificates &amp; documents</div>
+        <div class="table-wrap" style="background: transparent; border: 0;">
+          <table class="table">
+            <thead>
+              <tr><th>Document</th><th>Type</th><th>Revision</th><th>Issued</th><th>Expires</th><th></th></tr>
+            </thead>
+            <tbody><template x-for="d in docs" :key="d.id"><tr class="pari-clickable" tabindex="0" @click="PARI_UI.documentDownload(d)" @keydown.enter="PARI_UI.documentDownload(d)"><td x-text="d.doc_number"></td><td x-text="d.doc_type"></td><td x-text="d.revision"></td><td class="mono" x-text="d.issue_date"></td><td class="mono" x-text="d.expiry_date || '—'"></td><td><span class="chip" :class="d.status === 'valid' || d.status === 'perpetual' ? 'chip-ok' : d.status === 'expired' ? 'chip-danger' : 'chip-warn'" x-text="d.status"></span></td></tr></template></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section x-show="tab === 'statutory'" x-cloak x-transition.opacity style="margin-top: var(--sp-6);">
+      <div class="card-elevated" style="padding: var(--sp-6);">
+        <div class="card-header" style="margin-bottom: var(--sp-5);">
+          <div>
+            <div class="card-title">Statutory calendar</div>
+            <div class="card-subtitle"><span x-text="'State: ' + PARI.currentPlant.state + ' · ' + stat.length + ' statutory records'"></span></div>
+          </div>
+          <button class="btn btn-outline btn-sm" @click="PARI_UI.auditor(stat)"><i data-icon="download"></i> Auditor report</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-3)"><template x-for="i in stat" :key="i.id"><div class="pari-clickable" tabindex="0" @click="PARI_UI.statutoryEdit(i)" @keydown.enter="PARI_UI.statutoryEdit(i)" style="padding:var(--sp-4);border:1px solid var(--border);border-left:3px solid var(--warn-500);border-radius:var(--r-md)"><div class="row-b"><span x-text="i.regulation"></span><span class="chip chip-outline" x-text="i.status"></span></div><div style="font-size:var(--fs-sm);color:var(--text-muted)" x-text="i.reference + ' · ' + i.tpi_agency + ' · Scheduled ' + i.scheduled_date"></div></div></template><p x-show="!stat.length" class="pari-note">No statutory records for this crane.</p></div></div>
+    </section>
+<section x-show="tab === 'lifecycle'" x-cloak style="margin-top:24px"><div class="lifecycle-links"><a class="btn btn-secondary btn-sm" href="projects.html">Projects</a><a class="btn btn-secondary btn-sm" href="work-orders.html">Service work</a><a class="btn btn-secondary btn-sm" href="modernizations.html">Modernization</a><button class="btn btn-primary btn-sm" @click="PARI_LIFECYCLE.edit('modernizations',null,{crane_id:crane.id})">Evaluate modernization</button></div><div class="pari-list"><template x-for="event in PARI.assetHistory.filter(e => e.crane_id === crane.id)" :key="event.id"><div class="pari-list-item"><strong x-text="event.event"></strong><p x-text="event.timestamp + ' · ' + event.actor"></p><p x-text="event.notes"></p></div></template></div></section>
+  </div>
+</main>
+
+<div class="toast-stack" x-data="{ show: true }" x-show="show" x-cloak x-transition.opacity>
+  <div class="toast">
+    <div style="width: 24px; height: 24px; border-radius: 6px; background: rgba(228,162,78,0.16); color: var(--warn-400); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+      <i data-icon="pm" style="width: 14px; height: 14px;"></i>
+    </div>
+    <div style="flex:1">
+      <div class="toast-title">PM task starting in 30 min</div>
+      <div class="toast-body">Wire rope lubrication · Anjali Kumar assigned</div>
+    </div>
+    <button style="color: var(--text-dim); background: none; border: 0;" @click="show = false">✕</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('alpine:initialized', () => {
+  const paint = () => {
+    document.querySelectorAll('[data-icon]').forEach(el => {
+      const name = el.dataset.icon;
+      if (window.PARI_ICONS[name] && !el.innerHTML) el.innerHTML = window.PARI_ICONS[name];
+    });
+    document.querySelectorAll('[data-ring]').forEach(svg => {
+      const pct = parseFloat(svg.dataset.ring);
+      window.PARI_CHARTS.ring(svg.querySelector('svg') || svg, pct);
+    });
+  };
+  setTimeout(paint, 60);
+  document.addEventListener('click', () => setTimeout(paint, 40));
+});
+</script>
+
+</body>
+</html>

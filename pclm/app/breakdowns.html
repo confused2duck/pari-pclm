@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breakdowns · Pari</title>
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="../assets/js/app-health.js"></script>
+<script src="../assets/js/mock-data.js"></script>
+<script src="../assets/js/server-client.js"></script>
+<script src="../assets/js/store.js"></script>
+<script defer src="../assets/js/app.js"></script>
+<script defer src="../assets/js/workflows.js"></script>
+<script defer src="../assets/js/lifecycle.js"></script>
+<script defer src="../assets/vendor/alpine-3.14.1.min.js"></script>
+<link rel="stylesheet" href="../assets/css/workflows.css">
+<link rel="stylesheet" href="../assets/css/lifecycle.css">
+<link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#0A121C">
+</head>
+<body x-data="shell" :class="collapsed ? 'app is-collapsed' : 'app'">
+
+<button class="pari-backdrop" x-show="mobileOpen" x-cloak @click="mobileOpen = false" aria-label="Close sidebar"></button>
+<aside class="sidebar" :class="{ 'is-collapsed': collapsed &amp;&amp; !mobileOpen, 'is-mobile-open': mobileOpen }">
+  <a href="../index.html" class="sidebar-brand"><img class="mark" src="../assets/img/logo-mark.svg" alt=""><span class="name sidebar-label">Pari</span></a>
+<div class="sidebar-section sidebar-label">Overview</div><nav class="sidebar-nav"><a href="dashboard.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reliability</span></a><a href="cranes.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Cranes</span></a></nav>
+<div class="sidebar-section sidebar-label">Customers & Commercial</div><nav class="sidebar-nav"><a href="customers.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Customers</span></a><a href="plants.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Plants & Sites</span></a><a href="enquiries.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Enquiries</span></a><a href="quotations.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Quotations</span></a><a href="contracts.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Contracts & Renewals</span></a></nav>
+<div class="sidebar-section sidebar-label">Engineering & Projects</div><nav class="sidebar-nav"><a href="requirements.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Requirements & Specs</span></a><a href="engineering-reviews.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Drawing & Technical Reviews</span></a><a href="vendor-comparisons.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Vendor Comparisons</span></a><a href="projects.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Projects</span></a><a href="project-tasks.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Tasks & Punch List</span></a><a href="commissioning.html" class="sidebar-link"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Commissioning & Handover</span></a></nav>
+<div class="sidebar-section sidebar-label">Operations</div><nav class="sidebar-nav"><a href="components.html" class="sidebar-link"><i class="icon" data-icon="layers"></i><span class="sidebar-label">Components</span></a><a href="inspections.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspections</span></a><a href="checklists.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Inspection Templates</span></a><a href="pm-schedule.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Preventive Maintenance</span></a><a href="pm-rules.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">PM Rules</span></a><a href="usage.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Operating Readings</span></a><a href="breakdowns.html" class="sidebar-link is-active"><i class="icon" data-icon="breakdown"></i><span class="sidebar-label">Breakdowns</span></a><a href="repeat-failure.html" class="sidebar-link"><i class="icon" data-icon="brain"></i><span class="sidebar-label">Repeat-Failure</span></a></nav>
+<div class="sidebar-section sidebar-label">Service & Supply</div><nav class="sidebar-nav"><a href="service-requests.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Service Requests</span></a><a href="work-orders.html" class="sidebar-link"><i class="icon" data-icon="pm"></i><span class="sidebar-label">Work Orders</span></a><a href="visits.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Technician Visits</span></a><a href="spares.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Critical Spares</span></a><a href="procurement.html" class="sidebar-link"><i class="icon" data-icon="spares"></i><span class="sidebar-label">Purchase Requests</span></a><a href="partners.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Suppliers & Partners</span></a></nav>
+<div class="sidebar-section sidebar-label">Lifecycle & Governance</div><nav class="sidebar-nav"><a href="modernizations.html" class="sidebar-link"><i class="icon" data-icon="cranes"></i><span class="sidebar-label">Modernization</span></a><a href="documents.html" class="sidebar-link"><i class="icon" data-icon="cert"></i><span class="sidebar-label">Documents & Certs</span></a><a href="statutory.html" class="sidebar-link"><i class="icon" data-icon="compliance"></i><span class="sidebar-label">Statutory Calendar</span></a><a href="approvals.html" class="sidebar-link"><i class="icon" data-icon="inspection"></i><span class="sidebar-label">Approvals</span></a><a href="reports.html" class="sidebar-link"><i class="icon" data-icon="gauge"></i><span class="sidebar-label">Reports</span></a></nav>
+<div class="sidebar-section sidebar-label">Admin</div><nav class="sidebar-nav"><a href="notifications.html" class="sidebar-link"><i class="icon" data-icon="bell"></i><span class="sidebar-label">Notifications</span></a><a href="users.html" class="sidebar-link"><i class="icon" data-icon="user"></i><span class="sidebar-label">Users & Roles</span></a><a href="customer-portal.html" class="sidebar-link"><i class="icon" data-icon="eye"></i><span class="sidebar-label">Customer Portal</span></a></nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user"><div class="avatar">RM</div><div class="who sidebar-label"><span class="name">Ravi Mehta</span><span class="role">Reliability Manager</span></div></div>
+  </div>
+</aside>
+
+<main class="app-main">
+  <div class="topbar">
+    <button class="collapse-btn" @click="toggleCollapse()"><i data-icon="menu"></i></button>
+    <div class="breadcrumbs"><span>Jamshedpur Steel Works</span><span class="sep">/</span><span class="current">Breakdowns</span></div>
+    <div class="topbar-search"><i data-icon="search"></i><input class="input" type="search" placeholder="Search…"><span class="kbd">⌘ K</span></div>
+    <div class="plant-switcher"><div class="plant-icon"><i data-icon="layers"></i></div><div><div class="plant-name">Jamshedpur SW</div><div class="plant-role">42 cranes · JH</div></div><i data-icon="chevron_down" style="color: var(--text-dim); width: 14px; height: 14px;"></i></div>
+    <button class="topbar-icon"><i data-icon="bell"></i><span class="dot"></span></button>
+    <button class="topbar-icon"><i data-icon="brain"></i></button>
+  </div>
+
+  <div class="content" x-data="breakdownsLog">
+    <div class="page-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom: var(--sp-2);">Module 04 · Breakdown &amp; Root Cause</div>
+        <h1 class="page-title">Breakdowns</h1>
+        <p class="page-lede">Structured 5-Why / fishbone / fault-tree capture. Every incident becomes queryable data — the seed for the repeat-failure engine.</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary btn-sm" @click="PARI_UI.csv(&#x27;breakdowns-mttr-mtbf&#x27;, filtered.map(b =&gt; ({...b, fleet_mttr_min: mttr, crane_mtbf_h: PARI.cranes.find(c =&gt; c.id === b.crane_id)?.mtbf_h || 0})))"><i data-icon="download"></i> Export MTTR/MTBF</button>
+        <button class="btn btn-primary btn-sm" @click="PARI_UI.breakdownCreate()"><i data-icon="plus"></i> Report breakdown</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid reveal" style="grid-template-columns: repeat(4, 1fr); margin-bottom: var(--sp-6);">
+      <div class="kpi"><div class="kpi-label">MTTR (closed)</div><div class="kpi-value"><span x-text="mttr"></span><span class="unit">min</span></div><div class="kpi-delta up">▼ Improving</div></div>
+      <div class="kpi"><div class="kpi-label">Total downtime</div><div class="kpi-value"><span x-text="Math.round(totalDowntime/60)"></span><span class="unit">hrs</span></div><div class="kpi-delta down">Fleet · 90d</div></div>
+      <div class="kpi"><div class="kpi-label">Prod. loss impact</div><div class="kpi-value" style="color: var(--gold-400);">₹<span x-text="(totalImpact/100000).toFixed(1)"></span><span class="unit">L</span></div><div class="kpi-delta down">▲ +12%</div></div>
+      <div class="kpi"><div class="kpi-label">Open investigations</div><div class="kpi-value" style="color: var(--danger-400);" x-text="open"></div><div class="kpi-delta down">SLA 48 hrs</div></div>
+    </div>
+
+    <div class="filter-bar reveal">
+      <div class="search-inline"><i data-icon="search"></i><input class="input" type="search" placeholder="Search by asset or symptom…" x-model="q"></div>
+      <select class="select" x-model="component"><option value="all">All components</option><template x-for="c in [...new Set(breakdowns.map(b => b.component))]"><option :value="c" x-text="c"></option></template></select>
+      <select class="select" x-model="status"><option value="all">All statuses</option><option value="open">Open</option><option value="investigating">Investigating</option><option value="closed">Closed</option></select>
+      <span style="font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-dim); letter-spacing: var(--tracking-wide);"><span x-text="filtered.length"></span> of <span x-text="breakdowns.length"></span></span>
+    </div>
+
+    <div class="stack">
+      <template x-for="b in filtered" :key="b.id">
+        <div class="card-elevated reveal pari-clickable" role="button" tabindex="0" @click="PARI_UI.breakdownEdit(b)" @keydown.enter="PARI_UI.breakdownEdit(b)" :style="`padding: var(--sp-5) var(--sp-6); border-left: 3px solid ${b.status === 'closed' ? 'var(--ok-500)' : b.status === 'investigating' ? 'var(--warn-500)' : 'var(--danger-500)'};`">
+          <div class="row-b" style="margin-bottom: var(--sp-3);">
+            <div style="display: flex; align-items: center; gap: var(--sp-3);">
+              <span class="mono" style="font-size: var(--fs-xs); color: var(--accent); letter-spacing: var(--tracking-wide);" x-text="b.id"></span>
+              <span class="chip chip-outline" x-text="b.asset"></span>
+              <span class="chip" :class="b.failure_type === 'electrical' ? 'chip-info' : b.failure_type === 'structural' ? 'chip-warn' : 'chip-outline'" x-text="b.failure_type.toUpperCase()"></span>
+            </div>
+            <span class="chip" :class="b.status === 'closed' ? 'chip-ok' : b.status === 'investigating' ? 'chip-warn' : 'chip-danger'" x-text="b.status.toUpperCase()"></span>
+          </div>
+          <div style="font-size: var(--fs-md); color: var(--text); font-weight: 500; margin-bottom: var(--sp-3);" x-text="b.symptom"></div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider);">
+            <div><div class="field-label" style="margin-bottom: 4px;">Reported</div><div style="font-size: var(--fs-sm); color: var(--text);" x-text="b.datetime_reported.replace('T', ' · ')"></div></div>
+            <div><div class="field-label" style="margin-bottom: 4px;">Component</div><div style="font-size: var(--fs-sm); color: var(--text);" x-text="b.component"></div></div>
+            <div><div class="field-label" style="margin-bottom: 4px;">Downtime</div><div style="font-size: var(--fs-sm); color: var(--warn-400); font-weight: 600;" x-text="b.downtime_min + ' min'"></div></div>
+            <div><div class="field-label" style="margin-bottom: 4px;">Prod. impact</div><div style="font-size: var(--fs-sm); color: var(--gold-400); font-weight: 600; font-family: var(--font-mono);" x-text="'₹' + (b.impact_inr/100000).toFixed(1) + ' L'"></div></div>
+          </div>
+          <div style="display: grid; grid-template-columns: auto 1fr; gap: var(--sp-4); margin-top: var(--sp-3); align-items: center;">
+            <span class="chip chip-gold" x-text="b.root_cause_method"></span>
+            <div style="font-size: var(--fs-sm); color: var(--text-soft);" x-text="'Root cause: ' + b.root_cause"></div>
+          </div>
+        </div>
+      </template>
+      <div x-show="filtered.length === 0" x-cloak class="empty">
+        <h5 style="color: var(--text); font-weight: 500; margin-bottom: 4px;">No breakdowns match those filters</h5>
+        <p style="font-size: var(--fs-sm);">Try clearing filters.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+document.addEventListener('alpine:initialized', () => {
+  const paint = () => document.querySelectorAll('[data-icon]').forEach(el => { const n = el.dataset.icon; if (window.PARI_ICONS && window.PARI_ICONS[n] && !el.innerHTML) el.innerHTML = window.PARI_ICONS[n]; });
+  setTimeout(paint, 60);
+  document.addEventListener('input', () => setTimeout(paint, 40));
+  document.addEventListener('click', () => setTimeout(paint, 40));
+});
+</script>
+</body>
+</html>
