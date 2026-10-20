@@ -1,5 +1,7 @@
 # PCLM live application
 
+**Deploying on Vercel? Read [VERCEL.md](VERCEL.md).** Vercel uses the native `build:vercel` target, Clerk sign-in, Turso records and private Blob originals. The sections below describe the existing Sites target. Its Cloudflare bindings and ChatGPT identity do not transfer automatically to Vercel.
+
 This version runs as a hosted application with persistent D1 records and R2 originals. It preserves the supplied PCLM interface while replacing the local Python dependency. Sign-in is managed by the hosting platform; use your authorised ChatGPT account.
 
 The private workspace starts empty. Add your customer/site/equipment, or choose **profile → Load example records** while the fleet is empty to review the complete workflow with labelled examples. There is no shared demo password.

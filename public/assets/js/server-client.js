@@ -12,6 +12,7 @@ const userKey=()=> 'pari.live.'+(window.PARI_BOOTSTRAP?.user?.id||'guest');
 const pendingKey=()=>userKey()+'.pending';
 function setStatus(text,error=false){const el=document.querySelector('[data-sync-status]');if(el){el.textContent=text;el.style.color=error?'var(--danger-400)':'var(--text-dim)';}}
 async function api(path,body,method='POST',headers={}){
+ if(boot?.authProvider==='clerk'&&window.PARI_AUTH_READY){await window.PARI_AUTH_READY;const token=await window.Clerk.session?.getToken();if(token)headers={Authorization:'Bearer '+token,...headers};}
  const response=await fetch(path,{method,credentials:'same-origin',headers:{...(body instanceof Blob?{}:{'Content-Type':'application/json'}),'X-CSRF-Token':csrf,...headers},body:body==null?undefined:body instanceof Blob?body:JSON.stringify(body)});
  const type=response.headers.get('Content-Type')||'';
  if(!response.ok){const error=type.includes('json')?await response.json():{message:'Request failed ('+response.status+')'};throw Object.assign(new Error(error.message),{status:response.status});}
@@ -57,7 +58,17 @@ function cacheDraft(state){localStorage.setItem(userKey()+'.cache',JSON.stringif
 if(active&&boot.user&&!navigator.onLine){try{const cached=JSON.parse(localStorage.getItem(userKey()+'.cache')||'null');if(cached?.user?.id===boot.user.id)boot.state=cached.state;}catch{}}
 function keep(item){const items=pending();items.push(item);localStorage.setItem(pendingKey(),JSON.stringify(items));}
 async function sendItem(item){setStatus('Saving…');for(const c of item.changes){const known=ownVersions.get(c.collection+'|'+c.id);if(known?.from.has(c.expected_version))c.expected_version=known.to;}const result=await api('/api/transactions',item);for(const v of result.ack?.versions||[]){const change=item.changes.find(c=>c.collection===v.collection&&c.id===v.id);if(!change)continue;const key=v.collection+'|'+v.id,known=ownVersions.get(key)||{from:new Set()};known.from.add(change.expected_version);known.to=v.version;ownVersions.set(key,known);}apply(result);return result;}
-const Live=window.PARI_LIVE={active,api,apply,get revision(){return revision;},
+async function uploadFile(id,file,name=file.name,mime=file.type){
+ if(boot.uploadProvider!=='vercel-blob')return api('/api/files/'+id,file,'POST',{'Content-Type':mime||'application/octet-stream','X-Filename':encodeURIComponent(name)});
+ if(!file.size||file.size>20*1024*1024)throw Error('Choose a non-empty file up to 20 MB.');
+ const sha256=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await file.arrayBuffer())),x=>x.toString(16).padStart(2,'0')).join('');
+ const prepared=await api('/api/files/prepare',{id,name,mime:mime||'application/octet-stream',size:file.size,sha256});
+ if(prepared.saved)return prepared;
+ const {upload}=await import('/assets/vendor/blob-client.js');
+ await upload(prepared.pathname,file,{access:'private',handleUploadUrl:'/api/blob-upload',contentType:mime||'application/octet-stream',multipart:file.size>4*1024*1024,headers:{'X-CSRF-Token':csrf,...(window.Clerk?.session?{Authorization:'Bearer '+await window.Clerk.session.getToken()}: {})}});
+ return api('/api/files/finalize',{id});
+}
+const Live=window.PARI_LIVE={active,api,apply,uploadFile,get revision(){return revision;},
  user(){return window.PARI_BOOTSTRAP?.user||null;},
  commit(store,action,before){
   const after=clone(store.data),old=JSON.parse(before),changes=diff(old,after),preferences={preferences:after.preferences,snoozedUntil:after.snoozedUntil};
@@ -77,7 +88,7 @@ const Live=window.PARI_LIVE={active,api,apply,get revision(){return revision;},
   synchronising=(async()=>{
    const items=pending();if(items.some(x=>x.conflict)){setStatus('Draft conflict · review pending changes',true);return;}
    const fileKey=userKey()+'.files',files=JSON.parse(localStorage.getItem(fileKey)||'[]');
-   while(files.length){const entry=files[0],blob=await window.PARI_STORE.files.localGet(entry.id);if(!blob)throw Error('An offline attachment is missing. Export your draft and attach the file again.');await api('/api/files/'+entry.id,blob,'POST',{'Content-Type':entry.mime||'application/octet-stream','X-Filename':encodeURIComponent(entry.name)});files.shift();localStorage.setItem(fileKey,JSON.stringify(files));}
+   while(files.length){const entry=files[0],blob=await window.PARI_STORE.files.localGet(entry.id);if(!blob)throw Error('An offline attachment is missing. Export your draft and attach the file again.');await uploadFile(entry.id,blob,entry.name,entry.mime);files.shift();localStorage.setItem(fileKey,JSON.stringify(files));}
    if(!items.length)return;
    // Merge repeated edits into one atomic transaction using the original row version.
    const merged=new Map();for(const item of items)for(const change of item.changes){const key=change.collection+'|'+(change.id||'');if(merged.has(key))Object.assign(merged.get(key).fields,change.fields);else merged.set(key,clone(change));}
@@ -89,7 +100,7 @@ const Live=window.PARI_LIVE={active,api,apply,get revision(){return revision;},
  async signout(){await this.flush();await api('/api/auth/logout',{});if('caches' in window){for(const key of await caches.keys())if(key.startsWith('pclm-'))await caches.delete(key);}if('serviceWorker' in navigator){for(const registration of await navigator.serviceWorker.getRegistrations())if(registration.active?.scriptURL.includes('/sw.js'))await registration.unregister();}indexedDB.deleteDatabase('pclm-files-'+Live.user()?.id);localStorage.removeItem(userKey()+'.files');localStorage.removeItem(userKey()+'.cache');localStorage.removeItem(pendingKey());sessionStorage.clear();location.href=boot.hosted?'/signout-with-chatgpt?return_to=/auth/login.html':'/auth/login.html';},
  async authSetup(){
   if(!location.pathname.startsWith('/auth/'))return;
-  const form=document.querySelector('form.form-stack');if(form){form.innerHTML='<p class="pari-note">Sign in with your ChatGPT account to open your PCLM workspace.</p><a class="btn btn-primary" style="width:100%;justify-content:center" target="_top" href="/signin-with-chatgpt?return_to=/app/dashboard.html">Continue with ChatGPT</a>';}
+  const form=document.querySelector('form.form-stack');if(form&&boot.authProvider==='clerk'){form.innerHTML='<p class="pari-note">Use your verified PCLM account to open the workspace.</p><a class="btn btn-primary" style="width:100%;justify-content:center" href="/sign-in?force_redirect_url='+encodeURIComponent(location.pathname+location.search)+'" target="_top">Sign in to PCLM</a>';}else if(form){form.innerHTML='<p class="pari-note">Sign in with your ChatGPT account to open your PCLM workspace.</p><a class="btn btn-primary" style="width:100%;justify-content:center" target="_top" href="/signin-with-chatgpt?return_to=/app/dashboard.html">Continue with ChatGPT</a>';}
   const token=new URLSearchParams(location.search).get('token');if(token){try{const invite=await api('/api/invitation?token='+encodeURIComponent(token),null,'GET');window.PARI_UI.dialog('Join PCLM workspace','<p class="pari-note">Invitation for '+window.PARI_UI.esc(invite.name)+' · '+window.PARI_UI.esc(invite.email)+'</p><p class="pari-note">'+(invite.matches_account?'Your signed-in account matches this invitation.':'Sign in with the invited email before accepting.')+'</p>',async()=>{await api('/api/auth/accept',{token});location.href='/app/dashboard.html';},'Accept invitation');}catch(error){window.PARI_UI.toast(error.message);}}
  }
 

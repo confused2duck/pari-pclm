@@ -49,3 +49,13 @@ The Site starts owner-private. Customer/technician invitations also require that
 Email, WhatsApp and push providers are not configured. Invitation links are usable directly; the outbox reports their actual state. The webhook test makes a real HTTPS delivery only when a webhook URL is configured. External delivery controls identify their connection requirement instead of claiming delivery. The live parisolutions.in marketing website, DNS, ERP, payments and IoT systems have not been changed.
 
 Before using live operational data, complete browser acceptance on your supported devices, authorize the intended users through Site sharing, configure the required delivery providers, and confirm your retention/recovery process. These are explicit remaining release requirements, not completed checks.
+
+## Vercel migration correction — 20 October 2026
+
+The GitHub snapshot initially used the Sites/Vinext build. Vercel's Next.js autodetection then required `.next/routes-manifest.json`, which that build cannot generate. The native Vercel target now runs Next.js, serves the retained pages with a catch-all server route, and traces the HTML into the function package. Explicit Vercel settings override framework/output detection. Node is pinned to 22.x.
+
+Vercel runtime adapters use Turso/libSQL atomic write batches, private Vercel Blob storage and verified Clerk identity. Internet-supplied Sites identity headers are stripped. The configured owner email gates first workspace creation, and original file uploads use scoped, short-lived browser upload tokens plus server checksum verification. Browser session refresh is initialized on retained HTML pages. Missing integrations fail closed with setup guidance.
+
+Verification: native Next.js production build and TypeScript check pass; 27 existing workflow/controller subtests also pass against the actual libSQL client with a local database; nine Vercel integration subtests pass, covering all 36 pages, owner gate, forged identity, batch rollback, upload authorization, 6 MB original bytes, tampering, missing configuration and storage labels. These are runtime/adapter tests, not external Turso, Blob or Clerk service acceptance tests.
+
+Production provider credentials, live schema migration and Vercel browser sign-in remain unverified. The Vercel account connection currently returns no teams and cannot inspect the user's new deployment. See VERCEL.md for the six required configuration keys.

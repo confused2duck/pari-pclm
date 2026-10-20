@@ -1,0 +1,57 @@
+▶ Native Vercel integration contracts
+  ✔ Missing integrations fail closed without secret values or demo data (6.520371ms)
+  ✔ Incoming identity headers cannot authenticate internet requests (2.642532ms)
+  ✔ Retained HTML initializes the browser session refresh SDK from its configured origin (0.495766ms)
+  ✔ Only the configured verified owner can initialize the workspace (5.121618ms)
+  ✔ Every retained application page serves authenticated bootstrap (61.151561ms)
+  ✔ Turso adapter preserves real write-batch rollback (0.682265ms)
+  ✔ JSON prepare, scoped upload authorization and checksum finalization support files above 4.5 MB (42.808696ms)
+  ✔ Tampered files never become ready and upload routes reject GET (3.247301ms)
+  ✔ Health labels actual storage and auth return paths stay same-origin (0.962216ms)
+✔ Native Vercel integration contracts (125.862278ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 363.703168
+▶ Hosted PCLM full data flow
+  ✔ New hosted owner gets an empty durable workspace without demo passwords (8.475289ms)
+  ✔ Missing identity, CSRF and cross-site changes are rejected (1.91593ms)
+  ✔ Enquiry and quotation totals persist (12.153848ms)
+  ✔ Single-use, email-bound customer invitations (12.048821ms)
+  ✔ Contract activation and renewal preserve quotation linkage (23.992303ms)
+  ✔ Specification approval is locked against direct edits (9.669875ms)
+  ✔ Blocking drawing issues prevent approval (15.141659ms)
+  ✔ Supplier comparison requires an evaluated selection (9.995884ms)
+  ✔ Project and closed punch list gate handover (10.509137ms)
+  ✔ Original file upload preserves bytes and is idempotent (10.046851ms)
+  ✔ Approved commissioning creates crane, components, document and PM links (13.712622ms)
+  ✔ Independent customer accepts project handover (7.166431ms)
+  ✔ Customer request becomes an assigned technician work order (16.643982ms)
+  ✔ Technician visit, completion and customer acceptance close the request (16.882025ms)
+  ✔ Checklist measurements are evaluated server-side, including conditional items (21.131433ms)
+  ✔ Reviewed PM factors produce a traceable interval (15.461921ms)
+  ✔ Stock consumption, partial receipts and over-receipt validation (27.103609ms)
+  ✔ Repeated failures generate one flag; RCA cycle and closure guards (22.563055ms)
+  ✔ Modernization approval creates a linked upgrade project (17.456598ms)
+  ✔ Customer and technician scope blocks unrelated data and writes (21.486937ms)
+  ✔ Idempotent transactions do not double-create or duplicate audit (8.210802ms)
+  ✔ Stale and competing saves do not overwrite a newer value (21.839106ms)
+  ✔ Failed validation rolls back the complete transaction (9.811438ms)
+Verified UI action hooks: 82 across 36 pages
+  ✔ Backup restore is scoped and records the restore audit (16.675495ms)
+  ✔ Webhook configuration and outbox report real delivery state (1.201956ms)
+  ✔ Website enquiry reaches the CRM with consent validation (5.536753ms)
+  ✔ Frontend controllers initialise for every sidebar action (34.112875ms)
+✔ Hosted PCLM full data flow (396.209026ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 521.075139

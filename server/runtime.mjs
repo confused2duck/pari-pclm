@@ -24,7 +24,7 @@ export async function account(request,env,create=true){
  let row=await statement(env.DB,'SELECT data FROM pclm_members WHERE identity=?',who.identity).first();
  if(!row&&create){
   const workspace=await env.DB.prepare('SELECT id FROM pclm_workspaces LIMIT 1').first();
-  if(!workspace){const s=blank();s.customers[0].email=who.email;const u={id:uid('member'),workspace:'org_1',...who,role:'Organization Admin',scope:'Organization',plant_ids:[],status:'active',preferences:{},read:[],csrf:uid('csrf')};const memberJson=JSON.stringify(u),token=uid('initial');
+  if(!workspace){if(env.PCLM_OWNER_EMAIL&&who.email!==env.PCLM_OWNER_EMAIL.trim().toLowerCase())throw new Problem('Only the configured workspace owner may initialize PCLM.',403);const s=blank();s.customers[0].email=who.email;const u={id:uid('member'),workspace:'org_1',...who,role:'Organization Admin',scope:'Organization',plant_ids:[],status:'active',preferences:{},read:[],csrf:uid('csrf')};const memberJson=JSON.stringify(u),token=uid('initial');
    const statements=[statement(env.DB,'INSERT OR IGNORE INTO pclm_workspaces(id,owner,revision,metadata,last_write) VALUES(?,?,1,?,?)','org_1',who.identity,JSON.stringify(metadata(s)),token),statement(env.DB,'INSERT OR IGNORE INTO pclm_members(id,workspace,identity,email,data) SELECT ?,?,?,?,? WHERE EXISTS(SELECT 1 FROM pclm_workspaces WHERE id=? AND owner=?)',u.id,u.workspace,u.identity,u.email,memberJson,u.workspace,u.identity)];
    for(const c of COLLECTIONS)for(const r of s[c])statements.push(statement(env.DB,'INSERT OR IGNORE INTO pclm_records(workspace,collection,id,version,data) SELECT ?,?,?,?,? WHERE EXISTS(SELECT 1 FROM pclm_workspaces WHERE id=? AND owner=?)',u.workspace,c,r.id,1,JSON.stringify(r),u.workspace,u.identity));
    await env.DB.batch(statements);row=await statement(env.DB,'SELECT data FROM pclm_members WHERE identity=?',who.identity).first();
@@ -60,7 +60,7 @@ async function remind(s){
  for(const [type,id,title,crane_id,customer_id]of events){const key=type+':'+id+':'+today();if(s.notifications.some(n=>n.dedup_key===key))continue;s.notifications.unshift({id:uid('nt'),type,title,body:'Review the linked operational record.',crane_id:crane_id||null,customer_id:customer_id||find(s,'cranes',crane_id,false)?.customer_id||null,tone:'warn',ts:now(),read:false,dedup_key:key,_version:1});}
 }
 export async function api(request,env,ctx){
- const url=new URL(request.url),path=url.pathname;if(path==='/api/health'){if(!env.DB||!env.BUCKET)throw new Problem('Persistent storage is not connected.',503);await env.DB.prepare('SELECT 1 AS healthy').first();await env.BUCKET.head('__pclm_health');return json({status:'ok',version:3,storage:'D1 + R2'});}
+ const url=new URL(request.url),path=url.pathname;if(path==='/api/health'){if(!env.DB||!env.BUCKET)throw new Problem('Persistent storage is not connected.',503);await env.DB.prepare('SELECT 1 AS healthy').first();await env.BUCKET.head('__pclm_health');return json({status:'ok',version:3,storage:env.STORAGE_LABEL||'D1 + R2'});}
  if(path==='/api/invitation'){const who=identity(request);if(!who)throw new Problem('Sign in to accept the invitation.',401);const token=url.searchParams.get('token')||'',invite=await statement(env.DB,'SELECT * FROM pclm_invitations WHERE hash=? AND used=0 AND expires>?',await digest(token),Date.now()).first();if(!invite)throw new Problem('Invitation expired or already accepted.',404);const p=await statement(env.DB,'SELECT data FROM pclm_members WHERE id=?',invite.member).first();const m=JSON.parse(p.data);return json({name:m.name,email:m.email,role:m.role,kind:'invite',matches_account:m.email===who.email});}
  if(path==='/api/auth/accept'){
   if(request.headers.get('Origin')&&request.headers.get('Origin')!==url.origin||request.headers.get('Sec-Fetch-Site')==='cross-site')throw new Problem('Cross-site changes are not permitted.',403);
@@ -114,4 +114,4 @@ export async function api(request,env,ctx){
  throw new Problem('Endpoint not found.',404);
 }
 export async function handleApi(request,env,ctx){try{return await api(request,env,ctx);}catch(e){if(!(e instanceof Problem))console.error('pclm_request_failed',e.stack);return json({message:e instanceof Problem?e.message:'The request could not be saved. Please retry or contact the administrator.'},e.status||500);}}
-export {read,save,statement};
+export {read,save,statement,secureWrite};

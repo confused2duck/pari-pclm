@@ -1,0 +1,1 @@
+PASS production Next.js HTTP: routes manifest, 36 traced pages, assets, secure setup responses and sign-in configuration screen
